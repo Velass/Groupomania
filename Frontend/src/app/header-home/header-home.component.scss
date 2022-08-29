@@ -1,0 +1,58 @@
+* {
+    font-family: 'Lato', sans-serif;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border-bottom: 2px solid #FD2D01;
+
+    .container1 {
+        img {
+            width: 50%;
+            height: 100%;
+            margin-left: 15%;
+        }
+    }
+
+    .container2 {
+        width: 50%;
+        height: 30%;
+        display: flex;
+        justify-content: right;
+        margin-right: 5%;
+
+        a {
+            margin-right: 5%;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a:hover {
+            color: #4E5166;
+        }
+
+        .signup {
+            white-space: nowrap;
+            font-size: larger;
+        }
+
+        .login {
+            font-size: larger;
+
+        }
+    }
+
+}
+
+@media (min-width: 900px) {
+    .header {
+        img {
+            width: 100%;
+            height: 50%;
+        }
+
+    }
+}

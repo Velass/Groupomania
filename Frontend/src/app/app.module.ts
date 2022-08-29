@@ -1,29 +1,22 @@
-
-import { registerLocaleData } from '@angular/common';
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { HomeBarComponent } from './home-bar/home-bar.component';
+import { HeaderHomeComponent } from './header-home/header-home.component';
 import { LoginComponent } from './login/login.component';
-import { PostComponent } from './post/post.component';
-import * as fr from "@angular/common/locales/fr"
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeBarComponent,
+    HeaderHomeComponent,
     LoginComponent,
-    PostComponent
+    SignUpComponent
   ],
   imports: [
     BrowserModule
   ],
-  providers: [{provide: LOCALE_ID, useValue: "fr-FR"}],
+  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-  constructor() {
-    registerLocaleData(fr.default);
-  }
- }
+export class AppModule { }

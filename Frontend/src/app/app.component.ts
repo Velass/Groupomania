@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { login } from './models/login.models';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +6,5 @@ import { login } from './models/login.models';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  myLogin!: login;
-
-  ngOnInit() {
-   
-  }
+  title = 'Groupomania';
 }
-
