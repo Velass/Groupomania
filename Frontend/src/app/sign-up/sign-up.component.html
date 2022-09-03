@@ -1,16 +1,17 @@
 <div class="container">
-    <form action="" method="post" class="form-example">
+    <form #SignupForm="ngForm" (ngSubmit)="onSignupCreate(SignupForm.value)">
         <div class="form-email">
           <label for="email">Email: </label>
-          <input type="email" name="email" id="email" placeholder="Email" required>
+          <input (click)="onRegedex()" type="email" name="email" id="email" placeholder="Email" ngModel required>
         </div>
         <div class="form-password">
           <label for="password">Password: </label>
-          <input type="password" name="password" id="password" placeholder="Password" required>
+          <input type="password" name="password" id="password" placeholder="Password" ngModel required>
         </div>
         <div class="form-signup">
           <input type="submit" value="SIGN UP" class="signup">
         </div>
+        <h3 id="message"></h3>
       </form>
 </div>
 

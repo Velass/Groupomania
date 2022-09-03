@@ -1,15 +1,16 @@
 <div class="container">
-    <form action="" method="get" class="form-example">
+    <form #LoginForm="ngForm" (ngSubmit)="onLoginCreate(LoginForm.value)">
         <div class="form-email">
           <label for="email">Email: </label>
-          <input type="email" name="email" id="email" placeholder="Email" required>
+          <input type="email" name="email" id="email" placeholder="Email" ngModel required>
         </div>
         <div class="form-password">
           <label for="password">Password: </label>
-          <input type="password" name="password" id="password" placeholder="Password" required>
+          <input type="password" name="password" id="password" placeholder="Password" ngModel required>
         </div>
         <div class="form-login">
           <input type="submit" value="LOGIN" class="login">
         </div>
+        <h3 id="message"></h3>
       </form>
 </div>

@@ -34,7 +34,7 @@ app.use(express.json());
 
 
 // Mise en place des routes et du chemin
-app.use("/api/posts", postRoutes);
+//app.use("/api/posts", postRoutes);
 app.use("/api/auth", userRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
