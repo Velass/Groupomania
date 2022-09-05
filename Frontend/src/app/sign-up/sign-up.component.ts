@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ErrorHandler, OnInit } from '@angular/core';
+import { GlobalErrorHandler } from '../error.service';
+
+
 
 @Component({
   selector: 'app-sign-up',
@@ -15,7 +18,7 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  onRegedex() {
+  onRegedexEmail() {
     const inputEmail = (document.getElementById("email") as HTMLInputElement)
     inputEmail.addEventListener("change", (e) => {
       console.log(e)
@@ -28,14 +31,15 @@ export class SignUpComponent implements OnInit {
         return true;
 
       } else {
-        messageError.textContent = "Merci de bien vouloir saisir un Email valide"
+        messageError.textContent = "Merci de bien vouloir saisir un Email et un Mot de passe valide"
         return false;
       }
     })
   }
-  onSignupCreate(signup: { email: string, password: string }) {
+
+  onSignupCreate(signup: { email: string, password: string,  }) {
     const messageError = (document.getElementById("message") as HTMLInputElement)
-    if (messageError.textContent! === "") {
+    if (messageError.textContent === "") {
       
       this.http.post("http://localhost:3000/api/auth/signup", signup)
         .subscribe((res) => {
@@ -43,11 +47,19 @@ export class SignUpComponent implements OnInit {
 
 
         })
-    } else {
-      (messageError.textContent! === "veuillez sélectionner une adresse mail valide"); {
+        console.log("ok");
+        
+        
+    } if(ErrorHandler) {
+       {
+        messageError.textContent! === ""
+      console.log("test")
       
       }
 
+    }else() => {
+      (messageError.textContent! === "veuillez sélectionner une adresse mail valide");
+      console.log("non")
     }
 
 
@@ -56,3 +68,7 @@ export class SignUpComponent implements OnInit {
 
 
 }
+
+
+
+
