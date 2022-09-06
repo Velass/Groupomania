@@ -16,4 +16,15 @@ export class PostmenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  postmenu(){
+    const postMenu =document.getElementById("log") 
+    postMenu!.addEventListener("click", (e) =>{
+      console.log(e)
+    })
+  
+  
+  }
 }
+
+  
+

@@ -19,56 +19,71 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
   }
   onRegedexEmail() {
-    const inputEmail = (document.getElementById("email") as HTMLInputElement)
-    inputEmail.addEventListener("change", (e) => {
-      console.log(e)
-      const emailRegExp = /^[\w-\.]+@([\w-]+\.)+[a-z]{2,4}$/g;
-      const messageError = (document.getElementById("message") as HTMLInputElement)
-      const inputEmail = (document.getElementById("email") as HTMLInputElement)
-      console.log(messageError)
-      if (emailRegExp.test(inputEmail.value)) {
-        messageError.textContent = "";
-        return true;
-
-      } else {
-        messageError.textContent = "Merci de bien vouloir saisir un Email et un Mot de passe valide"
-        return false;
-      }
-    })
+    verifyRegexEmail()
   }
 
-  onSignupCreate(signup: { email: string, password: string,  }) {
+  onRegedexPassword() {
+    verifyRegexPassword()
+  }
+
+
+
+  onSignupCreate(signup: { email: string, password: string, }) {
     const messageError = (document.getElementById("message") as HTMLInputElement)
+    if (!verifyRegexEmail()) {
+      console.log("test")
+      return
+    }
+    if (!verifyRegexPassword()) {
+      console.log("test")
+      return
+    }
     if (messageError.textContent === "") {
-      
       this.http.post("http://localhost:3000/api/auth/signup", signup)
         .subscribe((res) => {
           console.log(res)
 
 
         })
-        console.log("ok");
-        
-        
-    } if(ErrorHandler) {
-       {
-        messageError.textContent! === ""
-      console.log("test")
-      
-      }
+      console.log("ok");
 
-    }else() => {
-      (messageError.textContent! === "veuillez sélectionner une adresse mail valide");
+    } else (messageError.textContent! === "veuillez sélectionner une adresse mail valide" || messageError.textContent! === "Mot de passe a 3 caractères minimum "); {
       console.log("non")
     }
-
-
   }
+}
 
+function verifyRegexEmail(): boolean {
+  const inputEmail = (document.getElementById("email") as HTMLInputElement)
+
+  const emailRegExp = /^[\w-\.]+@([\w-]+\.)+[a-z]{2,4}$/g;
+  const messageError = (document.getElementById("message") as HTMLInputElement)
+  if (emailRegExp.test(inputEmail.value)) {
+    messageError.textContent = "";
+    return true;
+
+  } else {
+    messageError.textContent = "Merci de bien vouloir saisir un Email valide"
+    return false;
+  }
 
 
 }
 
 
+function verifyRegexPassword(): boolean {
+  const inputPassword = (document.getElementById("password") as HTMLInputElement)
+  const passwordRegExp = /^(?=.*[A-Za-z])[A-Za-z\d]{3,}$/g;
+  const messageError = (document.getElementById("message") as HTMLInputElement)
+  if (passwordRegExp.test(inputPassword.value)) {
+    messageError.textContent = "";
+    return true;
+
+  } else {
+    messageError.textContent = "Mot de passe a 3 caractères minimum "
+    return false;
+  }
 
 
+
+}

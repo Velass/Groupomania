@@ -2,11 +2,11 @@
     <form #SignupForm="ngForm" (ngSubmit)="onSignupCreate(SignupForm.value)">
         <div class="form-email">
           <label for="email">Email: </label>
-          <input (click)="onRegedexEmail()" type="email" name="email" id="email" placeholder="Email" ngModel required>
+          <input (change)="onRegedexEmail()" type="email" name="email" id="email" placeholder="Email" ngModel required>
         </div>
         <div class="form-password">
           <label for="password">Password: </label>
-          <input type="password" name="password" id="password" placeholder="Password" ngModel required>
+          <input (change)="onRegedexPassword()" type="password" name="password" id="password" placeholder="Password" ngModel required>
         </div>
         <div class="form-signup">
           <input type="submit" value="SIGN UP" class="signup">

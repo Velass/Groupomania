@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ErrorHandler, NgModule, OnInit } from '@angular/core';
 import { GlobalErrorHandler } from '../error.service';
+import { PostmenuComponent } from '../postmenu/postmenu.component';
 
 
 
@@ -15,6 +16,7 @@ export class LoginComponent implements OnInit {
   constructor(private http: HttpClient){
 
   }
+
 
   ngOnInit(): void {
   }
@@ -36,13 +38,7 @@ export class LoginComponent implements OnInit {
   } else {
     
   }
-
-        
-
-    
-
-    
-    
-      
-  }
 }
+
+}
+

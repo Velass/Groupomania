@@ -5,10 +5,11 @@ import { HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderHomeComponent } from './header-home/header-home.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent, } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { FormsModule } from '@angular/forms';
 import { GlobalErrorHandler } from './error.service';
+import { PostmenuComponent } from './postmenu/postmenu.component';
 
 
 
@@ -19,9 +20,10 @@ import { GlobalErrorHandler } from './error.service';
     HeaderHomeComponent,
     LoginComponent,
     SignUpComponent,
-   
-    
+    PostmenuComponent,
+  
   ],
+  
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -33,3 +35,4 @@ import { GlobalErrorHandler } from './error.service';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
