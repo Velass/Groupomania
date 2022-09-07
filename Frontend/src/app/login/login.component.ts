@@ -22,7 +22,6 @@ export class LoginComponent implements OnInit {
   }
   onLoginCreate(login:{email: string, password: string} ){
     console.log(login);
-    const messageError = (document.getElementById("message") as HTMLInputElement)
   if (ErrorHandler) {
     this.http.post("http://localhost:3000/api/auth/login", login)
       .subscribe((res) => {

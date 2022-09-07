@@ -3,10 +3,14 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken")
 const { body, validationResult } = require('express-validator');
 const express = require('express');
-const app = express();
 
 // Inscription de l'utilisateur
 exports.signup = (req, res, next) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        console.log("erreur1")
+        return res.status(400).json({ errors: errors.array() });
+    }
     bcrypt.hash(req.body.password, 10)
         .then(hash => {
             const user = new User({
@@ -18,8 +22,9 @@ exports.signup = (req, res, next) => {
                 .catch(error => res.status(400).json({ error }));
         })
         .catch(error => res.status(500).json({ error }));
-
 };
+
+
 
 // Connexion en utilisant bcrypt et jwt
 exports.login = (req, res, next) => {
@@ -40,40 +45,44 @@ exports.login = (req, res, next) => {
                                     "RANDOM_TOKEN_SECRET",
                                     { expiresIn: "24h" }
                                 )
+                                
                             });
+                          
                         }
                     })
                     .catch(error => res.status(500).json({ error }))
-            }
+                    return res.redirect('http://localhost:4200/signup')
+            }   
         })
         .catch(error => res.status(500).json({ error }))
-
+        
 };
 
 
-app.use(express.json());
-app.post('/signup', (req, res) => {
-  User.create({
-    username: req.body.username,
-    password: req.body.password,
-  }).then(user => res.json(user));
-});
-app.post(
-    '/signup',
-    // username must be an email
-    body('username').isEmail(),
-    // password must be at least 5 chars long
-    body('password').isLength({ min: 5 }),
-    (req, res) => {
-      // Finds the validation errors in this request and wraps them in an object with handy functions
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-      }
-  
-      User.create({
-        username: req.body.username,
-        password: req.body.password,
-      }).then(user => res.json(user));
-    },
-  );
+
+
+
+
+// exports.test = (req, res, next) => {
+//     body('email').isEmail(),
+//     // password must be at least 5 chars long
+//     body('password').isLength({ min: 5 }),
+//     (req, res) => {
+//         console.log("ok")
+//       // Finds the validation errors in this request and wraps them in an object with handy functions
+//       const errors = validationResult(req);
+//       if (!errors.isEmpty()) {
+//         return res.status(400).json({ errors: errors.array() });
+//       }
+
+//     }
+// }
+
+exports.test = {
+    function(req, res) {
+        //Your logic and then redirect
+        return res.redirect('C:\Users\pc\Desktop\dev web\P7\P7\Groupomania\Frontend\src\app\postmenu\postmenu.component.html')
+        
+      },
+    
+};

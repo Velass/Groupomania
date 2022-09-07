@@ -47,9 +47,9 @@ export class SignUpComponent implements OnInit {
         })
       console.log("ok");
 
-    } else (messageError.textContent! === "veuillez sélectionner une adresse mail valide" || messageError.textContent! === "Mot de passe a 3 caractères minimum "); {
-      console.log("non")
-    }
+    } //else (messageError.textContent! === "veuillez sélectionner une adresse mail valide" || messageError.textContent! === "Mot de passe a 3 caractères minimum "); {
+    //   console.log("non")
+    // }
   }
 }
 
