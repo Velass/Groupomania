@@ -1,5 +1,5 @@
 <div class="container">
-    <form #LoginForm="ngForm" (ngSubmit)="onLoginCreate(LoginForm.value)">
+    <form method="post" action="http://localhost:3000/" id="form" #LoginForm="ngForm" (ngSubmit)="onLoginCreate(LoginForm.value)">
         <div class="form-email">
           <label for="email">Email: </label>
           <input type="email" name="email" id="email" placeholder="Email" ngModel required>
@@ -9,8 +9,10 @@
           <input type="password" name="password" id="password" placeholder="Password" ngModel required>
         </div>
         <div class="form-login">
-          <input type="submit" value="LOGIN" class="login" id="log">
+          <input  type="submit" value="LOGIN" class="login" id="log">
         </div>
         <h3 id="message"></h3>
       </form>
+      <!-- <div *ngIf="islogin">test</div> -->
 </div>
+

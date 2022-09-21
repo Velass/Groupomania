@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ErrorHandler, OnInit } from '@angular/core';
-import { GlobalErrorHandler } from '../error.service';
 
 
 
@@ -42,6 +41,7 @@ export class SignUpComponent implements OnInit {
       this.http.post("http://localhost:3000/api/auth/signup", signup)
         .subscribe((res) => {
           console.log(res)
+          window.location.href ="http://localhost:4200/postmenu"
 
 
         })

@@ -1,0 +1,19 @@
+<div id="post">
+    <div *ngIf="post" class="conteneur">
+        <div  class="back">
+            <i (click)="goPostList()" class="fa fa-solid fa-arrow-left"></i>
+        </div>
+        <h2>{{ post.title }}</h2>
+        <p>Mise en ligne le {{post.date | date: "dd MMMM yyyy, à HH:mm" }}</p>
+        <img [src]="post.imageUrl" [alt]="post.title">
+        <p>{{post.description}}</p>
+        <div id="comment">
+
+        </div>
+        <div id="note">
+            <p><i  class="fa fa-regular fa-thumbs-up"></i>{{post.like}}</p>
+            <p><i class="fas fa-regular fa-thumbs-down"></i>{{post.dislike}}</p>
+        </div>
+    </div>
+</div>
+<h4 *ngIf="!post">Aucun post à afficher</h4>

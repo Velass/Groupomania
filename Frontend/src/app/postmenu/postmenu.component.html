@@ -1,1 +1,12 @@
-<p>postmenu works!</p>
+<div id="post">
+    <div (click)='goPost(posts)' *ngFor="let posts of postList " class="conteneur">
+        <h2>{{ posts.title }}</h2>
+        <p>Mise en ligne le {{posts.date | date: "dd MMMM yyyy, à HH:mm" }}</p>
+        <img [src]="posts.imageUrl" [alt]="posts.title">
+        <p>{{posts.description}}</p>
+        <div id="note">
+            <p><i (click)="onlike('posts')" class="fa fa-regular fa-thumbs-up"></i>{{posts.like}}</p>
+            <p><i class="fas fa-regular fa-thumbs-down"></i>{{posts.dislike}}</p>
+        </div>
+    </div>
+</div>

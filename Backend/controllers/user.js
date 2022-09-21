@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken")
 const { body, validationResult } = require('express-validator');
 const express = require('express');
+const app = require("../app");
 
 // Inscription de l'utilisateur
 exports.signup = (req, res, next) => {
@@ -38,6 +39,16 @@ exports.login = (req, res, next) => {
                         if (!valid) {
                             res.status(401).json({ message: "identifiant ou mot de passe inccorecte" })
                         } else {
+                            // res.redirect(301,'/signup')
+                            // res.redirect(301,'/signup').json({
+                            //     userId: user._id,
+                            //     token: jwt.sign(
+                            //         { userId: user._id },
+                            //         "RANDOM_TOKEN_SECRET",
+                            //         { expiresIn: "24h" }
+                            //     )
+
+                            // });
                             res.status(200).json({
                                 userId: user._id,
                                 token: jwt.sign(
@@ -45,17 +56,17 @@ exports.login = (req, res, next) => {
                                     "RANDOM_TOKEN_SECRET",
                                     { expiresIn: "24h" }
                                 )
-                                
+
                             });
-                          
+
                         }
                     })
                     .catch(error => res.status(500).json({ error }))
-                    return res.redirect('http://localhost:4200/signup')
-            }   
+
+            }
         })
         .catch(error => res.status(500).json({ error }))
-        
+      
 };
 
 
@@ -78,11 +89,19 @@ exports.login = (req, res, next) => {
 //     }
 // }
 
-exports.test = {
-    function(req, res) {
-        //Your logic and then redirect
-        return res.redirect('C:\Users\pc\Desktop\dev web\P7\P7\Groupomania\Frontend\src\app\postmenu\postmenu.component.html')
+exports.test1 = (req, res, next) => {
+    app.get
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    return res.redirect(url.format({
+       pathname:"/",
+       query:req.query,
+     }))
+ };
+       
         
-      },
     
-};
+
+
+
