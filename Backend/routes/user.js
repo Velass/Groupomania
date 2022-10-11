@@ -9,6 +9,8 @@ const auth = require("../middleware/auth")
 router.post("/signup", [ body('email').isEmail(),body('password').isLength({ min: 3 }),]
 , userControllers.signup);
 router.post("/login", userControllers.login,);
-// router.get("/signup",auth ,userControllers.test1,);
+// router.get("/setcookie",(req, res) =>{
+//     res.cookie('name', 'tobi',)
+// })
 
 module.exports = router;

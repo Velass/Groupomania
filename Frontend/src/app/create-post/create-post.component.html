@@ -1,0 +1,20 @@
+<form [formGroup]="postForm" (ngSubmit)="submitBook()">
+
+    <input required type="text" formControlName="title">
+    <textarea required formControlName="description"></textarea>
+    <input required type="file" formControlName="file">
+
+    <button type="submit">SUBMIT</button>
+    <div *ngIf="f.title.errors?.required">
+        title is invalid
+        
+    </div>
+    <div *ngIf="f.file.errors?.required">
+        title is invalid
+        
+    </div>
+    <div *ngIf="f.description.errors?.required">
+        title is invalid
+        
+    </div>
+</form>

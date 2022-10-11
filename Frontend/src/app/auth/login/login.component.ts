@@ -29,9 +29,11 @@ export class LoginComponent implements OnInit {
     // this.elRef.nativeElement.querySelector('#form').submit();
     console.log(login);
     this.http.post("http://localhost:3000/api/auth/login",login, {responseType: "json"})
-    .subscribe((res,) => {
+    .subscribe((res: any,) => {
       (console.log(res)) 
-    
+      const token = res["token"]
+      console.log(token)
+      localStorage.setItem('token',token)
       this.router.navigate(["/postmenu"]);
       });
 

@@ -9,7 +9,7 @@ import { POST } from '../post-list/post-list';
   styleUrls: ['./postmenu.component.scss']
 })
 export class PostmenuComponent implements OnInit {
-  postSelected!: Post |undefined;
+  postSelected!: Post | undefined;
   postList: Post[] = POST;
 
 
@@ -19,7 +19,7 @@ export class PostmenuComponent implements OnInit {
   }
 
   selectPost(post: Post) {
-    
+
   }
 
 
@@ -29,8 +29,8 @@ export class PostmenuComponent implements OnInit {
 
 
 
-  onlike(postId: string | undefined) {
-    const id: Post | undefined = this.postList.find(Post => Post.id == +postId!)
+  onlike(postId: string ) {
+    const id: Post | undefined = this.postList.find(Post => Post.id == parseInt(postId))
     // const target = event.target
     if (id) {
       console.log(`${id.title}`);

@@ -15,7 +15,8 @@ import { PostmenuComponent } from './postmenu/postmenu.component';
 import { PostDetailComponent } from './post-detail/post-detail.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PostFormComponent } from './post-form/post-form.component';
-
+import { CreatePostComponent } from './create-post/create-post.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -30,6 +31,7 @@ import { PostFormComponent } from './post-form/post-form.component';
     PostDetailComponent,
     PageNotFoundComponent,
     PostFormComponent,
+    CreatePostComponent,
 
   ],
 
@@ -38,6 +40,7 @@ import { PostFormComponent } from './post-form/post-form.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
 
   ],
   providers: [

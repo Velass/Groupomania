@@ -1,24 +1,24 @@
-// const express = require("express")
-// const router = express.Router();
-// const auth = require("../middleware/auth")
-// const multer = require("../middleware/multer")
+const express = require("express")
+const router = express.Router();
+const auth = require("../middleware/auth")
+const multer = require("../middleware/multer")
 
-// const sauceControllers = require("../controllers/sauce")
-
-
-// // Routes create, read, update, delete (CRUD) et Routes like/dislike de notesauce
-// router.post("/", auth, multer, sauceControllers.createSauce);
-
-// router.post("/:id/like", auth, sauceControllers.noteSauce )
-
-// router.put("/:id", auth, multer, sauceControllers.modifySauce);
-
-// router.delete("/:id", auth, sauceControllers.deleteSauce);
-
-// router.get("/:id", auth, sauceControllers.oneSauce);
-
-// router.get("/", auth, sauceControllers.allSauce);
+const postControllers = require("../controllers/post")
 
 
+// Routes create, read, update, delete (CRUD) et Routes like/dislike de post
+router.post("/", auth, multer, postControllers.createPost);
 
-// module.exports = router;
+router.post("/:id/like", auth, postControllers.notePost )
+
+router.put("/:id", auth, multer, postControllers.modifyPost);
+
+router.delete("/:id", auth, postControllers.deletePost);
+
+router.get("/:id", auth, postControllers.onePost);
+
+router.get("/", auth, postControllers.allPost);
+
+
+
+module.exports = router;
