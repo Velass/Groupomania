@@ -1,28 +1,28 @@
-import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpErrorResponse,
-} from '@angular/common/http';
-import { Router } from '@angular/router';
-@Injectable({
-  providedIn: 'root',
-})
-export class AuthService {
-isLogin(){
-    return false
-}
-constructor() {}
+// import { Injectable } from '@angular/core';
+// import { Observable, throwError } from 'rxjs';
+// import { catchError, map } from 'rxjs/operators';
+// import {
+//   HttpClient,
+//   HttpHeaders,
+//   HttpErrorResponse,
+// } from '@angular/common/http';
+// import { Router } from '@angular/router';
+// @Injectable({
+//   providedIn: 'root',
+// })
+// // export class AuthService {
+// isLogin(){
+//     return false
+// }
+// constructor() {}
 
-    setLocalStorage() {}
+//     setLocalStorage() {}
 
-    logout() {}
+//     logout() {}
 
-    isLoggedIn() {}
+//     isLoggedIn() {}
 
-    isLoggedOut() {}
+//     isLoggedOut() {}
 
-    getExpiration() {}
-}
+//     getExpiration() {}
+// }

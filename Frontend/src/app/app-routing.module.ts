@@ -6,15 +6,15 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { PostDetailComponent } from './post-detail/post-detail.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CreatePostComponent } from './create-post/create-post.component';
-
+import { AuthGuard } from './auth.guard';
 
 
 const routes : Routes = [
 {path: "login", component: LoginComponent},
 {path: "signup", component: SignUpComponent},
-{path: "postmenu",component: PostmenuComponent},
-{path: "postmenu/:id",component: PostDetailComponent},
-{path: "createpost", component: CreatePostComponent},
+{path: "postmenu",component: PostmenuComponent, canActivate: [AuthGuard]},
+{path: "postmenu/:id",component: PostDetailComponent, canActivate: [AuthGuard]},
+{path: "createpost", component: CreatePostComponent, canActivate: [AuthGuard]},
 {path: "",redirectTo: "login", pathMatch: "full"},
 {path: "**", component: PageNotFoundComponent},
 ]

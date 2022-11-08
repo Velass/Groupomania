@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../service/auth.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-header-home',
@@ -12,7 +12,7 @@ export class HeaderHomeComponent implements OnInit {
   isLogin = false;
 
   ngOnInit(): void {
-    this.isLogin = this.auth.isLogin();
+    this.isLogin = this.auth.isLoggedIn;
     console.log(this.isLogin)
   }
  
