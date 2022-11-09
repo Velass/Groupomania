@@ -7,12 +7,16 @@ import { Observable, of, tap } from 'rxjs';
 export class AuthService {
 
   isLoggedIn: boolean = false
-  // redirectUrl: string;
+  redirectUrl: string;
 
   login(email: string, password: string,): Observable<boolean> {
-    const isLoggedIn = (email == "test@test.fr" && password == "test");
+    console.log(email),
+    console.log(password)
+    // this.isLoggedIn = (email == "test@test.com" && password == "test");
+   
     console.log("test guard 1")
-    return of(isLoggedIn).pipe(
+    console.log(this.isLoggedIn)
+    return of(this.isLoggedIn).pipe(
       tap(isLoggedIn =>this.isLoggedIn = isLoggedIn)
       );
   }

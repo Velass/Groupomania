@@ -13,33 +13,48 @@ import { AuthService } from '../../auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  email: string;
-  password: string;
-  message: string;
-  isLogin = false;
-  auth: AuthService
+
 
   constructor(private http: HttpClient,
     private router: Router,
     private authService: AuthService,) { }
 
 
+  email: string;
+  password: string;
+  message: string;
+  auth: AuthService
+  login: any
+
   ngOnInit(): void {
     this.auth = this.authService
   }
 
-  // onLoginCreate(login: { email: string, password: string }): any {
-    login(){
-    this.auth.login(this.email, this.password)
-      .subscribe((isLoggedIn: Boolean) => {
-      this.setMessage();
-      if (isLoggedIn) {
-        this.router.navigate(["/postmenu"]);
-      } else {
-        this.router.navigate(["/login"]);
+  onLoginCreate(login: { email: string, password: string }): any {
+    // this.auth.login(this.email, this.password)
+    //   .subscribe((isLoggedIn: Boolean) => {
+    //     console.log(isLoggedIn +"test on logincreate")
+    //      {
+    //       console.log(login)
+          this.http.post("http://localhost:3000/api/auth/login", login, { responseType: "json" })
+            .subscribe((res: any,) => {
+              (console.log(res))
+              const token = res["token"]
+              if (token != null) {
+                this.auth.isLoggedIn = true
+              }
+              console.log(token)
+              localStorage.setItem('token', token)
+              this.router.navigate(["/postmenu"]);
+            });
+        
+          
 
-      }
-    })
+        
+    //   });
+
+
+      
     // console.log(login);
     // this.http.post("http://localhost:3000/api/auth/login", login, { responseType: "json" })
     //   .subscribe((res: any,) => {
@@ -52,10 +67,6 @@ export class LoginComponent implements OnInit {
 
   }
 
-  logout() {
-    this.auth.logout();
-    this.setMessage
-  }
 
   setMessage() {
     if (this.auth.isLoggedIn) {
@@ -65,7 +76,12 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  Login() {
+    this.auth.login
+  }
+
 }
 
 
 
+// (login: { email: string, password: string }): any
