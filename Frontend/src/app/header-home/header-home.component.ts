@@ -9,15 +9,16 @@ import { AuthService } from '../auth.service';
 export class HeaderHomeComponent implements OnInit {
   cheminImage:any = "C:\Users\pc\Desktop\dev web\P7\P7\Groupomania\Frontend\src\app\logo"
   constructor(private auth : AuthService) { }
-  isLogin = this.auth.isLoggedIn;
+  isLogin = false;
 
   ngOnInit(): void {
-    this.isLogin = this.auth.isLoggedIn;
     console.log(this.isLogin)
   }
  
   logout() {
+    console.log(this.isLogin),
     this.auth.logout();
+    
     
   }
   

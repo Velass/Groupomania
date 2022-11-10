@@ -31,57 +31,20 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginCreate(login: { email: string, password: string }): any {
-    // this.auth.login(this.email, this.password)
-    //   .subscribe((isLoggedIn: Boolean) => {
-    //     console.log(isLoggedIn +"test on logincreate")
-    //      {
-    //       console.log(login)
-          this.http.post("http://localhost:3000/api/auth/login", login, { responseType: "json" })
-            .subscribe((res: any,) => {
-              (console.log(res))
-              const token = res["token"]
-              if (token != null) {
-                this.auth.isLoggedIn = true
-              }
-              console.log(token)
-              localStorage.setItem('token', token)
-              this.router.navigate(["/postmenu"]);
-            });
-        
-          
-
-        
-    //   });
-
-
-      
-    // console.log(login);
-    // this.http.post("http://localhost:3000/api/auth/login", login, { responseType: "json" })
-    //   .subscribe((res: any,) => {
-    //     (console.log(res))
-    //     const token = res["token"]
-    //     console.log(token)
-    //     localStorage.setItem('token', token)
-    //     this.router.navigate(["/postmenu"]);
-    //   });
+    this.http.post("http://localhost:3000/api/auth/login", login, { responseType: "json" })
+      .subscribe((res: any,) => {
+        (console.log(res))
+        const token =  res
+        if (token != null) {
+          this.auth.isLoggedIn = true
+        }
+        console.log(token)
+        localStorage.setItem('token', JSON.stringify(token),)
+        this.router.navigate(["/postmenu"]);
+      });
 
   }
 
-
-  setMessage() {
-    if (this.auth.isLoggedIn) {
-      this.message = "Vous êtes connecté";
-    } else {
-
-    }
-  }
-
-  Login() {
-    this.auth.login
-  }
 
 }
 
-
-
-// (login: { email: string, password: string }): any

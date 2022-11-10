@@ -14,7 +14,8 @@ exports.signup = (req, res, next) => {
         .then(hash => {
             const user = new User({
                 email: req.body.email,
-                password: hash
+                password: hash,
+                isAdmin: false
             });
             user.save()
                 .then(() => res.status(201).json({ message: "utilisateur crée" }))
@@ -37,24 +38,20 @@ exports.login = (req, res, next,) => {
                         if (!valid) {
                             res.status(401).json({ message: "identifiant ou mot de passe inccorecte" })
                         } else {
-                            // res.cookie("cookie" + "test", console.log("cookie"), {
-                            //     expires: new Date(Date.now() + 24 * 3600000), hhtpOnly: true,
-                            //     hhtpOnly: true ,
-                            //     // cookie will be removed after 24 hours
-                            //     next
-                                
-                            // });
                             res.status(200).json({
                                 userId: user._id,
+                                isAdmin: user.isAdmin,
+                                email: user.email,
                                 token: jwt.sign(
-                                    { userId: user._id, isAdmin: user.isAdmin },
+                                    { userId: user._id },
+                                    
                                     "RANDOM_TOKEN_SECRET",
                                     { expiresIn: "24h" }, 
 
                                 ),
                             })
 
-                            // console.log(req.cookies);
+          
                             
 
 

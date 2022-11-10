@@ -15,6 +15,8 @@ export class PostmenuComponent implements OnInit {
 
 
   ngOnInit() {
+    
+    this.useremail()
 
   }
 
@@ -27,6 +29,14 @@ export class PostmenuComponent implements OnInit {
 
   }
 
+  email = Array
+
+  useremail(){
+    const token = JSON.parse(localStorage.getItem("token")!);
+    console.log(token)
+    this.email = token.email
+    console.log(this.email)
+  }
 
 
   onlike(postId: string ) {

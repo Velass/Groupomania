@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ErrorHandler, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
+import { AuthService } from '../../auth.service';
 
 
 @Component({
@@ -11,11 +12,15 @@ import { Component, ErrorHandler, OnInit } from '@angular/core';
 
 export class SignUpComponent implements OnInit {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+    private router: Router,
+    private authService: AuthService,) {
 
   }
+  auth: AuthService
 
   ngOnInit(): void {
+    this.auth = this.authService
   }
   onRegedexEmail() {
     verifyRegexEmail()
@@ -41,7 +46,8 @@ export class SignUpComponent implements OnInit {
       this.http.post("http://localhost:3000/api/auth/signup", signup)
         .subscribe((res) => {
           console.log(res)
-          window.location.href ="http://localhost:4200/postmenu"
+          this.auth.isLoggedIn = true
+          this.router.navigate(["/postmenu"]);
 
 
         })

@@ -1,4 +1,5 @@
 <div id="post">
+    <h2>Bienvenue {{email}}</h2>
     <div (click)='goPost(posts)' *ngFor="let posts of postList " class="conteneur">
         <h2>{{ posts.title }}</h2>
         <p>Mise en ligne le {{posts.date | date: "dd MMMM yyyy, à HH:mm" }}</p>
