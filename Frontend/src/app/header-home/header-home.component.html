@@ -3,16 +3,16 @@
         <img routerLink="/postmenu" src="assets/img/Grouporama.png" alt="photo groupomania ">
     </div>
     <div class="container2">
-        <a *ngIf="!isLogin" routerLink="/createpost">
+        <a *ngIf="auth.isLoggedIn" routerLink="/createpost">
             <h3 class="login"> CREATEPOST</h3>
         </a>
-        <a *ngIf="!isLogin" routerLink="/signup">
+        <a *ngIf="!auth.isLoggedIn" routerLink="/signup">
             <h3 class="signup"> SIGNUP</h3>
         </a>
-        <a *ngIf="!isLogin" routerLink="/login">
+        <a *ngIf="!auth.isLoggedIn" routerLink="/login">
             <h3 class="login"> LOGIN</h3>
         </a>
-        <a *ngIf="!isLogin" (click)="logout()" routerLink="/login">
+        <a *ngIf="auth.isLoggedIn" (click)="logout()" routerLink="/login">
             <h3 class="login"> LOGOUT</h3>
         </a>
         <a routerLinkActive="active"></a>

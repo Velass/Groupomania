@@ -46,7 +46,7 @@ export class SignUpComponent implements OnInit {
       this.http.post("http://localhost:3000/api/auth/signup", signup)
         .subscribe((res) => {
           console.log(res)
-          this.auth.isLoggedIn = true
+          // this.auth.isLoggedIn$.next(true)
           this.router.navigate(["/postmenu"]);
 
 

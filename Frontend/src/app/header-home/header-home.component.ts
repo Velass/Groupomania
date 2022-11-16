@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, shareReplay } from 'rxjs';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -8,18 +9,20 @@ import { AuthService } from '../auth.service';
 })
 export class HeaderHomeComponent implements OnInit {
   cheminImage:any = "C:\Users\pc\Desktop\dev web\P7\P7\Groupomania\Frontend\src\app\logo"
-  constructor(private auth : AuthService) { }
-  isLogin = false;
+  constructor(public auth : AuthService,) { }
+
+ 
 
   ngOnInit(): void {
-    console.log(this.isLogin)
+
+    
+
   }
+
+  
  
   logout() {
-    console.log(this.isLogin),
     this.auth.logout();
-    
-    
   }
   
 }
