@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Post } from '../models/post.model';
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
@@ -16,26 +17,44 @@ export class CreatePostComponent implements OnInit {
       file: [null, Validators.required]
     });
   }
+  title: any
+  description : any
+  file: any
+  userId: any
+  token: any
+  tokentoken: string
+  post = Post 
+  
 
   get f() {
     return this.postForm.controls;
   }
   submitBook() {
     if (!this.postForm.invalid) {
-      this.http.post("http://localhost:3000/api/posts", this.postForm.value)
+      const newPost = new Post();
+      newPost.title = this.postForm.value.title
+      this.description = this.postForm.value.description
+      this.file = this.postForm.value.file
+      this.post = {title: this.title,description: this.description,file:this.file,date:new Date(),like:0,dislike:0,id:4}
+      this.http.post("http://localhost:3000/api/posts", this.post ,{
+      headers:{
+        'Authorization': `Bearer ${this.tokentoken}`,
+      },
+      // observe: 'body',
+      })
       .subscribe((res) => {
         console.log(res)
       })
 
-      console.log(this.postForm.value);
     }
-
+    console.log(this.post)
 
   }
 
   ngOnInit(): void {
-    console.log(this.postForm.controls)
-
+    this.token = JSON.parse(localStorage.getItem("token")!);
+    this.tokentoken = this.token.token
+    this.userId = this.token.userId
   }
 
 }

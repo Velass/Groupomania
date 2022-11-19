@@ -7,7 +7,6 @@ export const POST: Post[] = [
       like: 5,
       dislike: 2,
       imageUrl: "https://images-cdn.ispot.tv/ad/7igJ/default-large.jpg",
-      name: 'test',
       id: 1,
     },
     {
@@ -17,7 +16,6 @@ export const POST: Post[] = [
       like: 5,
       dislike: 2,
       imageUrl: "https://images-cdn.ispot.tv/ad/7igJ/default-large.jpg",
-      name: 'test1',
       id: 2,
     }
   ];

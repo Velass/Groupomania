@@ -1,2 +1,57 @@
 // .create-post {
 // }
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
+
+    .title {
+        width: 100%;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 50px;
+
+        input {
+            width: 50%;
+            height: 30px;
+
+        }
+    }
+
+    .description {
+        width: 100%;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 50px;
+
+        textarea {
+            width: 50%;
+            height: 200px;
+
+        }
+    }
+
+    .file {
+        width: 100%;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 5%;
+
+    
+        .comment {
+            margin-top: 10px;
+        }
+    }
+
+            
+    button {
+        margin-bottom: 30px;
+        width: 10%;
+        height: 30px;
+    }
+}

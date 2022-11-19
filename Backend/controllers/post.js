@@ -5,10 +5,11 @@ const fs = require('fs');
 // Controllers pour créer des Posts
 
 exports.createPost = (req, res, next) => {
-    const postObject = JSON.parse(req.body.post);
+    const postObject = req.body;
+    // console.log(postObject)
     console.log(req)
-    // delete postObject._id;
-    // delete postObject._userId;
+    console.log(req.body.file)
+    console.log('test')
     const post = new Post({
         ...postObject,
         userId: req.auth.userId,
