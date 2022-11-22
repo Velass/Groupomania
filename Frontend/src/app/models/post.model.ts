@@ -3,13 +3,11 @@ export class Post {
     
          title: string;
          description: string;
-        //  userId: string;
          date: Date;
-         like: number;
-         dislike: number;
+         likes: number;
+         dislikes: number;
          imageUrl: string;
-        //  name : string;
-         id : number;
+         _id : number;
 
     
 

@@ -18,33 +18,40 @@ export class CreatePostComponent implements OnInit {
     });
   }
   title: any
-  description : any
+  description: any
   file: any
   userId: any
   token: any
   tokentoken: string
-  post = Post 
-  
+  post: any
+  id: number
+
 
   get f() {
     return this.postForm.controls;
   }
+
+  getNameImg(event: any) {
+    console.log(event)
+    if (event.target.files.length > 0) {
+      this.file = event.target.files[0];
+    }
+  }
   submitBook() {
     if (!this.postForm.invalid) {
-      const newPost = new Post();
-      newPost.title = this.postForm.value.title
+      this.title = this.postForm.value.title
       this.description = this.postForm.value.description
-      this.file = this.postForm.value.file
-      this.post = {title: this.title,description: this.description,file:this.file,date:new Date(),like:0,dislike:0,id:4}
-      this.http.post("http://localhost:3000/api/posts", this.post ,{
-      headers:{
-        'Authorization': `Bearer ${this.tokentoken}`,
-      },
-      // observe: 'body',
+      // this.file = this.postForm.value.file
+      this.post = { post: { title: this.title, description: this.description, file: this.file, date: Date(), like: 0, dislike: 0, } }
+      this.http.post("http://localhost:3000/api/posts", this.post, {
+        headers: {
+          'Authorization': `Bearer ${this.tokentoken}`,
+        },
+        // observe: 'body',
       })
-      .subscribe((res) => {
-        console.log(res)
-      })
+        .subscribe((res) => {
+          console.log(res)
+        })
 
     }
     console.log(this.post)

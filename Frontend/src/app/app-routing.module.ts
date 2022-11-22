@@ -13,7 +13,7 @@ const routes : Routes = [
 {path: "login", component: LoginComponent},
 {path: "signup", component: SignUpComponent},
 {path: "postmenu",component: PostmenuComponent, canActivate: [AuthGuard]},
-{path: "postmenu/:id",component: PostDetailComponent, canActivate: [AuthGuard]},
+{path: "postmenu/:_id",component: PostDetailComponent, canActivate: [AuthGuard]},
 {path: "createpost", component: CreatePostComponent, canActivate: [AuthGuard]},
 {path: "",redirectTo: "login", pathMatch: "full"},
 {path: "**", component: PageNotFoundComponent},

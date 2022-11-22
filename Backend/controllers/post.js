@@ -5,15 +5,14 @@ const fs = require('fs');
 // Controllers pour créer des Posts
 
 exports.createPost = (req, res, next) => {
-    const postObject = req.body;
-    // console.log(postObject)
-    console.log(req)
-    console.log(req.body.file)
+    const postObject = req.body.post;
+    console.log(postObject)
+    console.log(postObject.file)
     console.log('test')
     const post = new Post({
         ...postObject,
         userId: req.auth.userId,
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${postObject.file.name}`
     });
 
     post.save()
