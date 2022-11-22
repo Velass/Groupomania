@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, } from '@angular/router';
-import { Post } from '../models/post.model';
-import { POST } from '../post-list/post-list';
 
 @Component({
   selector: 'app-post-detail',
@@ -11,8 +9,8 @@ import { POST } from '../post-list/post-list';
 })
 export class PostDetailComponent implements OnInit {
 
-  postList: Post[] | undefined;
-  post: Post | any;
+  post:any;
+  postList: any
   token: any
   
   constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient) { }
@@ -43,26 +41,19 @@ export class PostDetailComponent implements OnInit {
       }
     })
       .subscribe((res) => {
-        this.post = res
-        console.log(this.post)
-        this.postList = POST;
-        console.log(this.post)
+        this.postList = res
         const postId: string|null = this.route.snapshot.paramMap.get('_id');
-        console.log(postId)
-        console.log(this.postList)
+        // this.post = this.postList.find((post: { _id: string; }) =>post._id == postId)
         if(postId){
-          this.post = this.postList.find(post => post._id == +postId)
-    
+          this.post = this.postList.find((post: { _id: string; }) =>post._id == postId)
+          // this.post = this.postList.find((post) =>post._id == +postId)
+          // this.post = this.postList[0]._id.includes(postId)
+          // this.post = this.postList.find((post: { _id: number; } ) => post._id == +postId)
+          console.log(this.post)
+          // console.log(this.postList[0]._id.includes(postId))
         } else{
           this.post = undefined
         }
-       
-        // for(var index in listOfPosts){
-        // this.listOfPosts = { title: listOfPosts[index].title, description: listOfPosts[index].description, imageUrl: listOfPosts[index].imageUrl, date: new Date,like:listOfPosts[index].likes, dislike:listOfPosts[index].dislikes, id:listOfPosts[index]._id  }
-      // }
-      //  this.mapped = Object.keys(this.listOfPosts).map(key => ({type: key, value: this.listOfPosts[key]}))
-      
-      //  console.log( this.mapped)
       })
       
   }

@@ -5,7 +5,7 @@
             <input required type="text" formControlName="title">
             <div *ngIf="f.title.errors?.required">
                 title is invalid
-    
+
             </div>
         </div>
         <div class="description">
@@ -13,19 +13,20 @@
             <textarea required formControlName="description"></textarea>
             <div class="comment" *ngIf="f.description.errors?.required">
                 description is invalid
-    
+
             </div>
         </div>
         <div class="file">
             <h3>
                 Image du post
             </h3>
-        <input (change)="getNameImg($event)" id="file" required type="file" formControlName="file" >
-        <div class="comment" *ngIf="f.file.errors?.required">
-            file is invalid
+            <img class="profile-picture" [src]="profilePicture">
+            <input (change)="handleProfilePictureInput($event)" *ngIf="!profilePicture" id="file" required type="file" formControlName="file">
+            <div class="comment" *ngIf="f.file.errors?.required">
+                file is invalid
 
+            </div>
         </div>
-    </div>
 
         <button type="submit">SUBMIT</button>
 

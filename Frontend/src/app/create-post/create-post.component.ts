@@ -1,7 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Post } from '../models/post.model';
+import { Observable } from 'rxjs';
+
+
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
@@ -9,6 +11,7 @@ import { Post } from '../models/post.model';
 })
 export class CreatePostComponent implements OnInit {
   postForm: FormGroup;
+  imageService: any;
 
   constructor(private _formBuilder: FormBuilder, private http: HttpClient) {
     this.postForm = this._formBuilder.group({
@@ -25,29 +28,57 @@ export class CreatePostComponent implements OnInit {
   tokentoken: string
   post: any
   id: number
-
+  profilePicture: string;
 
   get f() {
     return this.postForm.controls;
   }
 
-  getNameImg(event: any) {
-    console.log(event)
-    if (event.target.files.length > 0) {
-      this.file = event.target.files[0];
-    }
+  ngOnInit(): void {
+    this.token = JSON.parse(localStorage.getItem("token")!);
+    this.tokentoken = this.token.token
+    this.userId = this.token.userId
   }
+
+  // getNameImg(event: any) {
+  //   console.log(event)
+  //   // if (event.target.files.length > 0) {
+  //   // }
+  //   this.file = event.target.files[0];
+  //   console.log(event.target.files)
+  // }
+
+  handleProfilePictureInput(file: any) {
+    console.log(file.target.files[0].name)
+    this.getBase64(file.target.files[0])
+      .subscribe((str: string) => this.profilePicture = str)
+      console.log(this.profilePicture);
+  }
+
+  getBase64(event: any): Observable<string> {
+    return new Observable<string>(sub => {
+      const reader = new FileReader();
+      reader.readAsDataURL(event);
+      reader.onload = () => {
+        sub.next(reader.result!.toString());
+        sub.complete();
+      };
+      reader.onerror = error => {
+        sub.error(error);
+      };
+    })
+  }
+
   submitBook() {
     if (!this.postForm.invalid) {
       this.title = this.postForm.value.title
       this.description = this.postForm.value.description
-      // this.file = this.postForm.value.file
+      this.file = this.postForm.value.file
       this.post = { post: { title: this.title, description: this.description, file: this.file, date: Date(), like: 0, dislike: 0, } }
       this.http.post("http://localhost:3000/api/posts", this.post, {
         headers: {
           'Authorization': `Bearer ${this.tokentoken}`,
         },
-        // observe: 'body',
       })
         .subscribe((res) => {
           console.log(res)
@@ -58,10 +89,7 @@ export class CreatePostComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-    this.token = JSON.parse(localStorage.getItem("token")!);
-    this.tokentoken = this.token.token
-    this.userId = this.token.userId
-  }
+
+
 
 }

@@ -11,7 +11,7 @@ import { POST } from '../post-list/post-list';
 })
 export class PostmenuComponent implements OnInit {
   postSelected!: Post | undefined;
-  postList: Post[] = POST;
+  // postList: Post[] = POST;
   listOfPosts: any
  
   constructor(private http: HttpClient,
@@ -21,6 +21,7 @@ export class PostmenuComponent implements OnInit {
 
   token: any
   mapped : any
+  email: any
 
   ngOnInit() {
     this.token = JSON.parse(localStorage.getItem("token")!).token;
@@ -36,32 +37,12 @@ export class PostmenuComponent implements OnInit {
 
 
 
-  email = Array
+  
 
   useremail() {
     const token = JSON.parse(localStorage.getItem("token")!);
     this.email = token.email
   }
-
-
-  onlike(postId: string) {
-    const id: Post | undefined = this.postList.find(Post => Post._id == parseInt(postId))
-    // const target = event.target
-    if (id) {
-      console.log(`${id.title}`);
-      this.postSelected = id
-
-    } else {
-      console.log("non")
-
-    }
-
-  }
-
-  goPost(post: Post) {
-    this.router.navigate(['/postmenu', post._id])
-  }
-
   listPost() {
     this.http.get("http://localhost:3000/api/posts", {
       headers: {
@@ -76,5 +57,26 @@ export class PostmenuComponent implements OnInit {
       })
       
   }
+
+
+  // onlike(postId: string) {
+  //   const id: Post | undefined = this.postList.find(Post => Post._id == parseInt(postId))
+  //   // const target = event.target
+  //   if (id) {
+  //     console.log(`${id.title}`);
+  //     this.postSelected = id
+
+  //   } else {
+  //     console.log("non")
+
+  //   }
+
+  // }
+
+  goPost(post: Post) {
+    this.router.navigate(['/postmenu', post._id])
+  }
+
+
 
 }

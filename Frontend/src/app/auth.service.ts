@@ -24,20 +24,15 @@ export class AuthService {
     this.http.post("http://localhost:3000/api/auth/login", Login, { responseType: "json" })
       .subscribe((res: any,) => {
         const token = res
-        console.log(res)
         console.log(token)
         if (token != null) {
           this.isLoggedIn = true
           localStorage.setItem('token', JSON.stringify(token),)
           this.router.navigate(["/postmenu"]);
-          console.log(this.isLoggedIn)
           
 
         }
       });
-      console.log("test")
-      
-     console.log(this.isLoggedIn)
       return of(this.isLoggedIn)
       
 
