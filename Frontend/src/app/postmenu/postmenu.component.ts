@@ -48,8 +48,9 @@ export class PostmenuComponent implements OnInit {
     })
       .subscribe((res) => {
         this.listOfPosts = res
+        this.listOfPosts = this.listOfPosts.reverse()
         console.log(this.listOfPosts)
-        console.log(this.listOfPosts.sort())
+        
        
       })
       

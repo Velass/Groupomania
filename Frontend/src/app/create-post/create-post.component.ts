@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SecurityContext } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -14,7 +15,7 @@ export class CreatePostComponent implements OnInit {
   postForm: FormGroup;
   imageService: any;
 
-  constructor(private _formBuilder: FormBuilder, private http: HttpClient,private router: Router) {
+  constructor(private _formBuilder: FormBuilder, private http: HttpClient, private router: Router,private sanitizer: DomSanitizer) {
     this.postForm = this._formBuilder.group({
       title: ['', Validators.required],
       description: [null, Validators.required],
@@ -30,6 +31,8 @@ export class CreatePostComponent implements OnInit {
   post: any
   id: number
   profilePicture: any;
+  photo: any
+  photoSafe: any
 
   get f() {
     return this.postForm.controls;
@@ -41,42 +44,33 @@ export class CreatePostComponent implements OnInit {
     this.userId = this.token.userId
   }
 
-  // getNameImg(event: any) {
-  //   console.log(event)
-  //   // if (event.target.files.length > 0) {
-  //   // }
-  //   this.file = event.target.files[0];
-  //   console.log(event.target.files)
-  // }
-
-  handleProfilePictureInput(file: any) {
-    console.log(file.target.files[0].name)
-    this.getBase64(file.target.files[0])
-      .subscribe((str: any) => this.profilePicture = str)
-      console.log(this.profilePicture);
+  getNameImg(event: any) {
+    console.log(event)
+    // if (event.target.files.length > 0) {
+    // }
+    this.file = event.target.files[0].name;
+    this.photo = event.target.files[0]
+    console.log(this.file)
   }
 
-  getBase64(event: any): Observable<string> {
-    return new Observable<string>(sub => {
-      const reader = new FileReader();
-      reader.readAsDataURL(event);
-      reader.onload = () => {
-        sub.next(reader.result!.toString());
-        sub.complete();
-      };
-      reader.onerror = error => {
-        sub.error(error);
-      };
-    })
-  }
+
 
   submitBook() {
     if (!this.postForm.invalid) {
       this.title = this.postForm.value.title
       this.description = this.postForm.value.description
-      this.file = this.postForm.value.file
-      this.post = { post: { title: this.title, description: this.description, file: this.file, date: Date(), like: 0, dislike: 0, } }
-      this.http.post("http://localhost:3000/api/posts", this.post, {
+      const data = new FormData();
+      this.photoSafe = this.sanitizer.sanitize(SecurityContext.URL,this.photo.name)
+      data.append('photo', this.photo, this.photo.name);
+      data.append("photoName", this.photoSafe.replaceAll(" ","_").replace(/[^a-zA-Z ]/g, "") + "")
+      data.append('title', this.title,);
+      data.append('description', this.description,);
+      console.log(data)
+      // this.http.post("http://localhost:3000/api/posts",data);
+      // this.file = this.postForm.value.files[0]
+      // this.post = { post: { title: this.title, description: this.description, file: this.file, date: Date(), like: 0, dislike: 0,photo: this.photo } }
+      // console.log(this.post)
+      this.http.post("http://localhost:3000/api/posts", data, {
         headers: {
           'Authorization': `Bearer ${this.tokentoken}`,
         },
@@ -87,7 +81,6 @@ export class CreatePostComponent implements OnInit {
         })
 
     }
-    console.log(this.post)
 
   }
 

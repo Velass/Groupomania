@@ -21,7 +21,7 @@
                 Image du post
             </h3>
             <img class="profile-picture" [src]="profilePicture">
-            <input (change)="handleProfilePictureInput($event)"  id="file" required type="file" formControlName="file">
+            <input (change)="getNameImg($event)"  id="file" required type="file" formControlName="file">
             <div class="comment" *ngIf="f.file.errors?.required">
                 file is invalid
 
