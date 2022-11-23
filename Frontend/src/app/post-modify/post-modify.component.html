@@ -1,0 +1,37 @@
+<form [formGroup]="postForm" (ngSubmit)="submitBook()">
+    <div class="form">
+        <div class="title">
+            <h3>Titre du post</h3>
+            <input required type="text" formControlName="title">
+            <div *ngIf="f.title.errors?.required">
+                title is invalid
+
+            </div>
+        </div>
+        <div class="description">
+            <h3>Description du post</h3>
+            <textarea required formControlName="description"></textarea>
+            <div class="comment" *ngIf="f.description.errors?.required">
+                description is invalid
+
+            </div>
+        </div>
+        <div class="file">
+            <h3>
+                Image du post
+            </h3>
+            <img class="profile-picture" [src]="profilePicture">
+            <input (change)="handleProfilePictureInput($event)"  id="file" required type="file" formControlName="file">
+            <div class="comment" *ngIf="f.file.errors?.required">
+                file is invalid
+
+            </div>
+        </div>
+
+        <button type="submit">SUBMIT</button>
+
+
+
+
+    </div>
+</form>

@@ -7,6 +7,7 @@ import { PostDetailComponent } from './post-detail/post-detail.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { AuthGuard } from './auth.guard';
+import { PostModifyComponent } from './post-modify/post-modify.component';
 
 
 const routes : Routes = [
@@ -15,6 +16,7 @@ const routes : Routes = [
 {path: "postmenu",component: PostmenuComponent, canActivate: [AuthGuard]},
 {path: "postmenu/:_id",component: PostDetailComponent, canActivate: [AuthGuard]},
 {path: "createpost", component: CreatePostComponent, canActivate: [AuthGuard]},
+{path: "modify/:_id", component: PostModifyComponent, canActivate: [AuthGuard]},
 {path: "",redirectTo: "login", pathMatch: "full"},
 {path: "**", component: PageNotFoundComponent},
 ]

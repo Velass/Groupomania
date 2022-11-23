@@ -85,7 +85,7 @@ export class PostDetailComponent implements OnInit {
       })
       .subscribe((res)=>{
         console.log(res)
-        setTimeout(()=>{ this.router.navigate(['/postmenu']); }, 50)
+        setTimeout(()=>{ this.router.navigate(['/postmenu']); }, 10)
       });
       
       
@@ -93,6 +93,13 @@ export class PostDetailComponent implements OnInit {
       console.log("vous n'avez pas l'authorisation")
     }
     
+  }
+
+  modify(event: any){
+    console.log(event)
+    if (this.userIdPost === this.userIdToken ||this.isAdmin== true ) {
+      setTimeout(()=>{ this.router.navigate(['/modify', this.idPost]); }, 10)
+    }
   }
 
 }

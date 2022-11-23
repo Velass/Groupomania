@@ -17,6 +17,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { PostFormComponent } from './post-form/post-form.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PostModifyComponent } from './post-modify/post-modify.component';
 
 
 
@@ -32,6 +33,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     PageNotFoundComponent,
     PostFormComponent,
     CreatePostComponent,
+    PostModifyComponent,
 
   ],
 

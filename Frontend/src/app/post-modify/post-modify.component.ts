@@ -1,20 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-
 @Component({
-  selector: 'app-create-post',
-  templateUrl: './create-post.component.html',
-  styleUrls: ['./create-post.component.scss']
+  selector: 'app-post-modify',
+  templateUrl: './post-modify.component.html',
+  styleUrls: ['./post-modify.component.scss']
 })
-export class CreatePostComponent implements OnInit {
+export class PostModifyComponent implements  OnInit {
   postForm: FormGroup;
   imageService: any;
 
-  constructor(private _formBuilder: FormBuilder, private http: HttpClient,private router: Router) {
+  constructor(private _formBuilder: FormBuilder, private http: HttpClient,private router: Router,private route: ActivatedRoute) {
     this.postForm = this._formBuilder.group({
       title: ['', Validators.required],
       description: [null, Validators.required],
@@ -30,6 +29,7 @@ export class CreatePostComponent implements OnInit {
   post: any
   id: number
   profilePicture: any;
+  idPost: any
 
   get f() {
     return this.postForm.controls;
@@ -39,6 +39,7 @@ export class CreatePostComponent implements OnInit {
     this.token = JSON.parse(localStorage.getItem("token")!);
     this.tokentoken = this.token.token
     this.userId = this.token.userId
+    this.idPost = this.route.snapshot.params._id;
   }
 
   // getNameImg(event: any) {
@@ -75,8 +76,8 @@ export class CreatePostComponent implements OnInit {
       this.title = this.postForm.value.title
       this.description = this.postForm.value.description
       this.file = this.postForm.value.file
-      this.post = { post: { title: this.title, description: this.description, file: this.file, date: Date(), like: 0, dislike: 0, } }
-      this.http.post("http://localhost:3000/api/posts", this.post, {
+      this.post = { post: { title: this.title, description: this.description, file: this.file,} }
+      this.http.put("http://localhost:3000/api/posts/"+ this.idPost, this.post, {
         headers: {
           'Authorization': `Bearer ${this.tokentoken}`,
         },
@@ -92,6 +93,5 @@ export class CreatePostComponent implements OnInit {
   }
 
 
-
-
 }
+

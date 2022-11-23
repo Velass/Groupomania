@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Post } from '../models/post.model';
-import { POST } from '../post-list/post-list';
+
 
 @Component({
   selector: 'app-postmenu',
@@ -48,7 +48,6 @@ export class PostmenuComponent implements OnInit {
     })
       .subscribe((res) => {
         this.listOfPosts = res
-        console.log(this.listOfPosts)
         console.log(this.listOfPosts)
         console.log(this.listOfPosts.sort())
        
