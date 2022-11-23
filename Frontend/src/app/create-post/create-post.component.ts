@@ -1,6 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 
@@ -13,7 +14,7 @@ export class CreatePostComponent implements OnInit {
   postForm: FormGroup;
   imageService: any;
 
-  constructor(private _formBuilder: FormBuilder, private http: HttpClient) {
+  constructor(private _formBuilder: FormBuilder, private http: HttpClient,private router: Router) {
     this.postForm = this._formBuilder.group({
       title: ['', Validators.required],
       description: [null, Validators.required],
@@ -82,6 +83,7 @@ export class CreatePostComponent implements OnInit {
       })
         .subscribe((res) => {
           console.log(res)
+          setTimeout(()=>{ this.router.navigate(['/postmenu']); }, 50)
         })
 
     }

@@ -1,7 +1,7 @@
 import { ErrorHandler, NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { registerLocaleData } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import * as fr from '@angular/common/locales/fr'
 
 import { AppRoutingModule } from './app-routing.module';
@@ -40,6 +40,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    CommonModule,
     ReactiveFormsModule,
 
   ],

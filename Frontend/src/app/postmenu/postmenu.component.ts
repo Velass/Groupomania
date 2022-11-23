@@ -30,19 +30,15 @@ export class PostmenuComponent implements OnInit {
 
   }
 
-  selectPost(post: Post) {
+  // selectPost(post: Post) {
 
-  }
-
-
-
-
-  
+  // }
 
   useremail() {
     const token = JSON.parse(localStorage.getItem("token")!);
     this.email = token.email
   }
+  
   listPost() {
     this.http.get("http://localhost:3000/api/posts", {
       headers: {
@@ -53,6 +49,8 @@ export class PostmenuComponent implements OnInit {
       .subscribe((res) => {
         this.listOfPosts = res
         console.log(this.listOfPosts)
+        console.log(this.listOfPosts)
+        console.log(this.listOfPosts.sort())
        
       })
       

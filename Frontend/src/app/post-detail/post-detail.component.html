@@ -7,12 +7,19 @@
         <p>Mise en ligne le {{post.date | date: "dd MMMM yyyy, à HH:mm" }}</p>
         <img [src]="post.imageUrl" [alt]="post.title">
         <p>{{post.description}}</p>
-        <div id="comment">
-
-        </div>
+        <!-- <div id="comment">
+        </div> -->
         <div id="note">
-            <p><i  class="fa fa-regular fa-thumbs-up"></i>{{post.likes}}</p>
+            <p><i class="fa fa-regular fa-thumbs-up"></i>{{post.likes}}</p>
             <p><i class="fas fa-regular fa-thumbs-down"></i>{{post.dislikes}}</p>
+        </div>
+        <div *ngIf="watchModifyAndDelete" id="modifyAndDelete">
+            <div id="modify">
+                <button>Modify</button>
+            </div>
+            <div (click)="delete($event)" id="delete">
+                <button>Delete</button>
+            </div>
         </div>
     </div>
 </div>
