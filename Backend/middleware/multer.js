@@ -3,7 +3,7 @@ const multer = require("multer");
 // Configuration de Multer
 const MINE_TYPES ={
     "image/jpg": "jpg",
-    "image/jpeg": "jpg",
+    "image/jpeg": "jpeg",
     "image/png": "png"
 }
 

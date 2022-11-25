@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
 export class CreatePostComponent implements OnInit {
   postForm: FormGroup;
   imageService: any;
+  type: any;
 
   constructor(private _formBuilder: FormBuilder, private http: HttpClient, private router: Router,private sanitizer: DomSanitizer) {
     this.postForm = this._formBuilder.group({
@@ -50,8 +51,11 @@ export class CreatePostComponent implements OnInit {
     // }
     this.file = event.target.files[0].name;
     this.photo = event.target.files[0]
-    console.log(this.file)
+    this.type = event.target.files[0].type
+    this.type = this.type.split('/')[1]
+    console.log(this.type)
   }
+
 
 
 
@@ -62,10 +66,11 @@ export class CreatePostComponent implements OnInit {
       const data = new FormData();
       this.photoSafe = this.sanitizer.sanitize(SecurityContext.URL,this.photo.name)
       data.append('photo', this.photo, this.photo.name);
-      data.append("photoName", this.photoSafe.replaceAll(" ","_").replace(/[^a-zA-Z ]/g, "") + "")
+      data.append("photoName", this.photoSafe.replaceAll(" ","_").replace(/[^a-zA-Z ]/g, "") +"."+ this.type)
       data.append('title', this.title,);
       data.append('description', this.description,);
       console.log(data)
+      // console.log(this.photo.split())
       // this.http.post("http://localhost:3000/api/posts",data);
       // this.file = this.postForm.value.files[0]
       // this.post = { post: { title: this.title, description: this.description, file: this.file, date: Date(), like: 0, dislike: 0,photo: this.photo } }
