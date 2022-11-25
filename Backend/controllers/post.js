@@ -81,11 +81,14 @@ exports.allPost = (req, res, next) => {
 exports.notePost = (req, res, next) => {
     Post.findOne({ _id: req.params.id })
         .then((post) => {
-
+            console.log(req.body)
+            console.log(post)
+           
             const user_is_liker = post.usersLiked.includes(req.body.userId)
             const user_is_disliker = post.usersDisliked.includes(req.body.userId)
 
             // Si l'utilisateur veut liker la post
+            
             if (req.body.like === 1 && !user_is_liker) {
                 // Incrémente likes, et ajoute userId dans la liste userLiked
                 Post.updateOne({ _id: req.params.id }, {
@@ -149,6 +152,7 @@ exports.notePost = (req, res, next) => {
                         .catch(error => res.status(401).json({ error }));
                 }
             }
+            
         })
         .catch((error) => {
             res.status(400).json({ error });

@@ -23,6 +23,7 @@ export class PostDetailComponent implements OnInit {
   showLike: boolean = true
   liked: boolean = false;
   disliked: boolean = false;
+  postLike: any;
 
   
   constructor(
@@ -35,6 +36,7 @@ export class PostDetailComponent implements OnInit {
     this.isAdmin = this.userIdToken = JSON.parse(localStorage.getItem("token")!).isAdmin;
     this.userIdToken = JSON.parse(localStorage.getItem("token")!).userId;
     this.listPost() 
+    console.log(this.userIdToken)
     // this.buttonModifyAndDelete()
     // this.userIdPostAndToken = this.userIdPost === this.userIdToken == true
     // voir si il est possibvle de faire ca
@@ -109,10 +111,25 @@ export class PostDetailComponent implements OnInit {
       this.like = false
       this.liked = false
     }
-    console.log(this.liked)
+
     if (this.liked == true) {
       this.showDislike = false;
       numberLike.style.color = "green"
+      const data = new FormData()
+      // data.append("userLiked", this.userIdToken )
+      // data.append("like", "1" )
+      console.log(this.userIdToken)
+      this.postLike =  { userId: this.userIdToken, like: 1  }
+      this.http.post(`http://localhost:3000/api/posts/${this.idPost}/like`,this.postLike, {
+        headers: {
+          'Authorization': `Bearer ${this.token}`,
+          
+        },
+      })
+        .subscribe((res) => {
+          console.log(res)
+        })
+
       console.log("coucou")
 
       
@@ -133,10 +150,11 @@ export class PostDetailComponent implements OnInit {
       this.dislike = false
       this.disliked = false
     }
-    console.log(this.disliked)
+ 
     if (this.disliked == true) {
       this.showLike = false;
       numberLike.style.color = "red"
+
       console.log("coucou")
 
       
