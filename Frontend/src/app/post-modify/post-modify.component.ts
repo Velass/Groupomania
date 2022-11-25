@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 export class PostModifyComponent implements  OnInit {
   postForm: FormGroup;
   imageService: any;
+  type: string;
   
 
   constructor(private _formBuilder: FormBuilder, private http: HttpClient,private router: Router,private route: ActivatedRoute,private sanitizer: DomSanitizer) {
@@ -50,21 +51,22 @@ export class PostModifyComponent implements  OnInit {
     console.log(event)
     // if (event.target.files.length > 0) {
     // }
-    this.file = event.target.files[0];
-    console.log(event.target.files)
+    this.file = event.target.files[0].name;
+    this.photo = event.target.files[0]
+    this.type = event.target.files[0].type
+    this.type = this.type.split('/')[1]
+    console.log(this.type)
   }
 
 
   submitBook() {
     if (!this.postForm.invalid) {
-      // this.title = this.postForm.value.title
-      // this.description = this.postForm.value.description
-      // this.file = this.postForm.value.file
-      // this.post = { post: { title: this.title, description: this.description, file: this.file,} }
+      this.title = this.postForm.value.title
+      this.description = this.postForm.value.description
       const data = new FormData();
       this.photoSafe = this.sanitizer.sanitize(SecurityContext.URL,this.photo.name)
       data.append('photo', this.photo, this.photo.name);
-      data.append("photoName", this.photoSafe.replaceAll(" ","_").replace(/[^a-zA-Z ]/g, "") + "")
+      data.append("photoName", this.photoSafe.replaceAll(" ","_").replace(/[^a-zA-Z ]/g, "") +"."+ this.type)
       data.append('title', this.title,);
       data.append('description', this.description,);
       console.log(data)
@@ -79,7 +81,6 @@ export class PostModifyComponent implements  OnInit {
         })
 
     }
-    console.log(this.post)
 
   }
 

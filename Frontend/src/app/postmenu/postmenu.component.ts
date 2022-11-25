@@ -57,19 +57,10 @@ export class PostmenuComponent implements OnInit {
   }
 
 
-  // onlike(postId: string) {
-  //   const id: Post | undefined = this.postList.find(Post => Post._id == parseInt(postId))
-  //   // const target = event.target
-  //   if (id) {
-  //     console.log(`${id.title}`);
-  //     this.postSelected = id
-
-  //   } else {
-  //     console.log("non")
-
-  //   }
-
-  // }
+  onlike(like: any) {
+    console.log(like)
+    
+  }
 
   goPost(post: Post) {
     this.router.navigate(['/postmenu', post._id])

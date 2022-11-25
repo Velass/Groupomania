@@ -70,11 +70,6 @@ export class CreatePostComponent implements OnInit {
       data.append('title', this.title,);
       data.append('description', this.description,);
       console.log(data)
-      // console.log(this.photo.split())
-      // this.http.post("http://localhost:3000/api/posts",data);
-      // this.file = this.postForm.value.files[0]
-      // this.post = { post: { title: this.title, description: this.description, file: this.file, date: Date(), like: 0, dislike: 0,photo: this.photo } }
-      // console.log(this.post)
       this.http.post("http://localhost:3000/api/posts", data, {
         headers: {
           'Authorization': `Bearer ${this.tokentoken}`,

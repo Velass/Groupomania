@@ -22,10 +22,12 @@ exports.createPost = (req, res, next) => {
 //Controllers pour modifier des posts
 exports.modifyPost = (req, res, next) => {
     console.log('test')
+    console.log(req.file)
+    console.log(req.body)
     const postObject = req.file?  {
-        ...JSON.parse(req.body.post),
+        ...(req.body),
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    } : { ...req.body.post };
+    } : { ...req.body };
 
     Post.findOne({ _id: req.params.id })
         .then((post) => {

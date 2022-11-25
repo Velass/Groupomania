@@ -17,6 +17,12 @@ export class PostDetailComponent implements OnInit {
   idPost: string
   watchModifyAndDelete: boolean
   isAdmin: boolean
+  like: boolean = false;
+  dislike: boolean = false
+  showDislike: boolean = true
+  showLike: boolean = true
+  liked: boolean = false;
+  disliked: boolean = false;
 
   
   constructor(
@@ -65,14 +71,6 @@ export class PostDetailComponent implements OnInit {
       
   }
 
-  // buttonModifyAndDelete(){
-  //   console.log(this.userIdPost)
-  //   console.log(this.userIdToken)
-  //   if (this.userIdPost == this.userIdToken ||this.isAdmin== true ) {
-  //     this.watchModifyAndDelete = true
-  //   }
-
-  // }
 
   delete(event: any){
     console.log(event)
@@ -100,6 +98,54 @@ export class PostDetailComponent implements OnInit {
     if (this.userIdPost === this.userIdToken ||this.isAdmin== true ) {
       setTimeout(()=>{ this.router.navigate(['/modify', this.idPost]); }, 10)
     }
+  }
+
+  onlike(event: any){
+    const numberLike = document.getElementById("numberLike") as HTMLElement;
+    if (event && this.like == false) {
+      this.like = true
+      this.liked = true
+    } else if (event && this.like == true ){
+      this.like = false
+      this.liked = false
+    }
+    console.log(this.liked)
+    if (this.liked == true) {
+      this.showDislike = false;
+      numberLike.style.color = "green"
+      console.log("coucou")
+
+      
+    } else if(this.liked == false) {
+      this.showDislike = true;
+      numberLike.style.color = "black"
+      console.log("coucou2")
+    }
+
+  }
+
+  onDislike(event: any){
+    const numberLike = document.getElementById("numberDislike") as HTMLElement;
+    if (event && this.dislike == false) {
+      this.dislike = true
+      this.disliked = true
+    } else if (event && this.dislike == true ){
+      this.dislike = false
+      this.disliked = false
+    }
+    console.log(this.disliked)
+    if (this.disliked == true) {
+      this.showLike = false;
+      numberLike.style.color = "red"
+      console.log("coucou")
+
+      
+    } else if(this.disliked == false) {
+      this.showLike = true;
+      numberLike.style.color = "black"
+      console.log("coucou2")
+    }
+
   }
 
 }
