@@ -8,8 +8,7 @@ import { ActivatedRoute, Router, } from '@angular/router';
   styleUrls: ['./post-detail.component.scss']
 })
 export class PostDetailComponent implements OnInit {
-
-  post:any;
+  post: any;
   postList: any
   token: any
   userIdToken: string
@@ -24,24 +23,26 @@ export class PostDetailComponent implements OnInit {
   liked: boolean = false;
   disliked: boolean = false;
   postLike: any;
+  postRemoveLike: any;
+  postRes: any;
+  getPost: any;
+  userIdInUserLiked: any | undefined
+  numberLike: any | null | undefined;
+  numberdislike: any | null;
+  test: any ;
 
-  
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void | null {
     this.token = JSON.parse(localStorage.getItem("token")!).token;
     this.isAdmin = this.userIdToken = JSON.parse(localStorage.getItem("token")!).isAdmin;
     this.userIdToken = JSON.parse(localStorage.getItem("token")!).userId;
-    this.listPost() 
-    console.log(this.userIdToken)
-    // this.buttonModifyAndDelete()
-    // this.userIdPostAndToken = this.userIdPost === this.userIdToken == true
-    // voir si il est possibvle de faire ca
-    
-   
+    this.listPost()
+
   }
 
   goPostList() {
@@ -57,110 +58,163 @@ export class PostDetailComponent implements OnInit {
     })
       .subscribe((res) => {
         this.postList = res
-        const postId: string|null = this.route.snapshot.paramMap.get('_id');
-        if(postId){
-          this.post = this.postList.find((post: { _id: string; }) =>post._id == postId)
+        const postId: string | null = this.route.snapshot.paramMap.get('_id');
+        if (postId) {
+          this.post = this.postList.find((post: { _id: string; }) => post._id == postId)
           this.userIdPost = this.post.userId
           this.idPost = this.post._id
-          if (this.userIdPost == this.userIdToken ||this.isAdmin== true ) {
+          console.log(this.post)
+          this.userIdInUserLiked = this.post.usersLiked.find(() => this.post.usersLiked[0] == this.userIdToken)
+
+          if (this.userIdPost == this.userIdToken || this.isAdmin == true) {
             this.watchModifyAndDelete = true
           }
-          
-        } else{
+
+        } else {
           this.post = undefined
         }
+        if (this.userIdInUserLiked == this.userIdPost) {
+          this.http.get(`http://localhost:3000/api/posts/${this.idPost}`, {
+            headers: {
+              'Authorization': `Bearer ${this.token}`,
+
+            },
+          })
+            .subscribe((res) => {
+              console.log(res)
+              this.getPost = res
+              this.numberLike = document.querySelector("#numberLike") as HTMLElement;
+              this.numberLike.innerText = this.getPost.likes
+              console.log(this.numberLike)
+              this.numberLike.style.color = "green"
+              this.onlike(event)
+              console.log("test")
+            })
+          
+        }
       })
-      
+
   }
 
 
-  delete(event: any){
+  delete(event: any) {
     console.log(event)
-    if (this.userIdPost === this.userIdToken ||this.isAdmin== true ) {
-      this.http.delete(`http://localhost:3000/api/posts/${this.idPost}`,{
+    if (this.userIdPost === this.userIdToken || this.isAdmin == true) {
+      this.http.delete(`http://localhost:3000/api/posts/${this.idPost}`, {
         headers: {
           'Authorization': `Bearer ${this.token}`,
           'Content-Type': 'application/json'
         }
       })
-      .subscribe((res)=>{
-        console.log(res)
-        setTimeout(()=>{ this.router.navigate(['/postmenu']); }, 10)
-      });
-      
-      
+        .subscribe((res) => {
+          console.log(res)
+          setTimeout(() => { this.router.navigate(['/postmenu']); }, 10)
+        });
+
+
     } else {
       console.log("vous n'avez pas l'authorisation")
     }
-    
+
   }
 
-  modify(event: any){
+  modify(event: any) {
     console.log(event)
-    if (this.userIdPost === this.userIdToken ||this.isAdmin== true ) {
-      setTimeout(()=>{ this.router.navigate(['/modify', this.idPost]); }, 10)
+    if (this.userIdPost === this.userIdToken || this.isAdmin == true) {
+      setTimeout(() => { this.router.navigate(['/modify', this.idPost]); }, 10)
     }
   }
 
-  onlike(event: any){
-    const numberLike = document.getElementById("numberLike") as HTMLElement;
+  onlike(event: any | null) {
+    // this.numberLike = document.querySelector("#numberLike") as HTMLElement;
+    // console.log(this.numberLike)
     if (event && this.like == false) {
       this.like = true
       this.liked = true
-    } else if (event && this.like == true ){
+    } else if (event && this.like == true) {
       this.like = false
       this.liked = false
     }
 
-    if (this.liked == true) {
+    if (this.liked == true || this.userIdInUserLiked == true) {
       this.showDislike = false;
-      numberLike.style.color = "green"
-      const data = new FormData()
-      // data.append("userLiked", this.userIdToken )
-      // data.append("like", "1" )
-      console.log(this.userIdToken)
-      this.postLike =  { userId: this.userIdToken, like: 1  }
-      this.http.post(`http://localhost:3000/api/posts/${this.idPost}/like`,this.postLike, {
+      this.numberLike = document.getElementById("numberLike");
+      this.numberLike.style.color = "green"
+      console.log(this.numberLike)
+      this.postLike = { userId: this.userIdToken, like: 1 }
+      this.http.post(`http://localhost:3000/api/posts/${this.idPost}/like`, this.postLike, {
         headers: {
           'Authorization': `Bearer ${this.token}`,
-          
+
+        },
+      })
+        .subscribe((res: any) => {
+          console.log(res)
+          this.http.get(`http://localhost:3000/api/posts/${this.idPost}`, {
+            headers: {
+              'Authorization': `Bearer ${this.token}`,
+
+            },
+          })
+            .subscribe((res) => {
+              this.getPost = res
+              this.numberLike.innerText = this.getPost.likes
+              console.log("coucou")
+            })
+        })
+
+    } else if (this.liked == false || this.userIdInUserLiked == false) {
+      this.showDislike = true;
+      this.numberLike.style.color = "black"
+      this.postRemoveLike = { userId: this.userIdToken, like: 0 }
+      this.http.post(`http://localhost:3000/api/posts/${this.idPost}/like`, this.postRemoveLike, {
+        headers: {
+          'Authorization': `Bearer ${this.token}`,
+
         },
       })
         .subscribe((res) => {
           console.log(res)
+          this.http.get(`http://localhost:3000/api/posts/${this.idPost}`, {
+            headers: {
+              'Authorization': `Bearer ${this.token}`,
+
+            },
+          })
+            .subscribe((res) => {
+              console.log(res)
+              this.getPost = res
+              this.numberLike.innerText = this.getPost.likes
+              console.log(this.numberLike)
+              console.log("coucou2")
+            })
         })
 
-      console.log("coucou")
-
-      
-    } else if(this.liked == false) {
-      this.showDislike = true;
-      numberLike.style.color = "black"
-      console.log("coucou2")
     }
+    return event
 
   }
 
-  onDislike(event: any){
-    const numberLike = document.getElementById("numberDislike") as HTMLElement;
+  onDislike(event: any) {
+    this.numberdislike = document.getElementById("numberDislike") as HTMLElement | null;
     if (event && this.dislike == false) {
       this.dislike = true
       this.disliked = true
-    } else if (event && this.dislike == true ){
+    } else if (event && this.dislike == true) {
       this.dislike = false
       this.disliked = false
     }
- 
+
     if (this.disliked == true) {
       this.showLike = false;
-      numberLike.style.color = "red"
+      this.numberLike.style.color = "red"
 
       console.log("coucou")
 
-      
-    } else if(this.disliked == false) {
+
+    } else if (this.disliked == false) {
       this.showLike = true;
-      numberLike.style.color = "black"
+      this.numberLike.style.color = "black"
       console.log("coucou2")
     }
 

@@ -19,7 +19,8 @@
             display: flex;
             align-items: center;
             width: 100%;
-            .fa{
+
+            .fa {
                 color: red;
                 margin-left: 1%;
                 margin-top: 1%;
@@ -35,48 +36,58 @@
         #note {
             display: flex;
 
-            p:nth-child(1) {
-                margin-right: 10px;
+            #like {
+                display: flex;
+                p {
+                    margin-right: 10px;
+                    color: black;
+                }
+
+                .fa {
+                    color: green;
+                    margin-right: 2px;
+                }
             }
 
-            .fa {
-                color: green;
-                margin-right: 2px;
-            }
-
-            .fas {
-                color: red;
-                margin-right: 2px;
+            #dislike {
+                .fas {
+                    color: red;
+                    margin-right: 2px;
+                }
+                p {
+                    margin-right: 10px;
+                    color: black;
+                }
             }
         }
 
-        #modifyAndDelete{
+        #modifyAndDelete {
             display: flex;
             flex-direction: row;
             margin-bottom: 20px;
             gap: 60px;
 
-            #modify{
+            #modify {
                 width: 100px;
                 height: 50px;
                 background-color: black;
 
-                button{
+                button {
                     height: 100%;
                     width: 100%;
                     color: black;
                     background-color: green;
                     font-size: 16px;
                 }
-                
+
             }
 
-            #delete{
+            #delete {
                 width: 100px;
                 height: 50px;
                 background-color: black;
 
-                button{
+                button {
                     height: 100%;
                     width: 100%;
                     color: black;

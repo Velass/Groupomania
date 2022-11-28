@@ -1,6 +1,6 @@
 <div id="post">
     <div *ngIf="post" class="conteneur">
-        <div  class="back">
+        <div class="back">
             <i (click)="goPostList()" class="fa fa-solid fa-arrow-left"></i>
         </div>
         <h2>{{ post.title }}</h2>
@@ -8,8 +8,16 @@
         <img [src]="post.imageUrl" [alt]="post.title">
         <p>{{post.description}}</p>
         <div id="note">
-            <p id="numberLike" *ngIf="showLike"><i class="fa fa-regular fa-thumbs-up" (click)="onlike($event)"></i>{{post.likes}}</p>
-            <p id="numberDislike" *ngIf="showDislike"><i class="fas fa-regular fa-thumbs-down" (click)="onDislike($event)" ></i>{{post.dislikes}}</p>
+            <div id="like">
+                <i class="fa fa-regular fa-thumbs-up" *ngIf="showLike" (click)="onlike($event)">
+                    <p id="numberLike">{{post.likes}}</p>
+                </i>
+            </div>
+            <div id="dislike">
+                <i class="fas fa-regular fa-thumbs-down" *ngIf="showDislike" (click)="onDislike($event)">
+                    <p id="numberDislike">{{post.dislikes}}</p>
+                </i>
+            </div>
         </div>
         <div *ngIf="watchModifyAndDelete" id="modifyAndDelete">
             <div (click)="modify($event)" id="modify">
