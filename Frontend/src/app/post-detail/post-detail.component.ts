@@ -23,13 +23,19 @@ export class PostDetailComponent implements OnInit {
   liked: boolean = false;
   disliked: boolean = false;
   postLike: any;
+  postDislike: any;
   postRemoveLike: any;
+  postRemoveDislike: any;
   postRes: any;
   getPost: any;
   userIdInUserLiked: any | undefined
+  userIdInUserDisliked: any | undefined;
   numberLike: any | null | undefined;
-  numberdislike: any | null;
-  test: any ;
+  numberDislike: any | null | undefined;
+
+
+
+
 
 
   constructor(
@@ -65,6 +71,7 @@ export class PostDetailComponent implements OnInit {
           this.idPost = this.post._id
           console.log(this.post)
           this.userIdInUserLiked = this.post.usersLiked.find(() => this.post.usersLiked[0] == this.userIdToken)
+          this.userIdInUserDisliked = this.post.usersDisliked.find(() => this.post.usersDisliked[0] == this.userIdToken)
 
           if (this.userIdPost == this.userIdToken || this.isAdmin == true) {
             this.watchModifyAndDelete = true
@@ -85,12 +92,29 @@ export class PostDetailComponent implements OnInit {
               this.getPost = res
               this.numberLike = document.querySelector("#numberLike") as HTMLElement;
               this.numberLike.innerText = this.getPost.likes
-              console.log(this.numberLike)
               this.numberLike.style.color = "green"
+              console.log("onlike")
               this.onlike(event)
-              console.log("test")
             })
-          
+
+        }
+         else if (this.userIdInUserDisliked == this.userIdPost) {
+          this.http.get(`http://localhost:3000/api/posts/${this.idPost}`, {
+            headers: {
+              'Authorization': `Bearer ${this.token}`,
+
+            },
+          })
+            .subscribe((res) => {
+              console.log(res)
+              this.getPost = res
+              this.numberDislike = document.querySelector("#numberDislike") as HTMLElement;
+              this.numberDislike.innerText = this.getPost.dislikes
+              this.numberDislike.style.color = "red"
+              console.log("ondislike")
+              this.onDislike(event)
+            })
+
         }
       })
 
@@ -126,8 +150,6 @@ export class PostDetailComponent implements OnInit {
   }
 
   onlike(event: any | null) {
-    // this.numberLike = document.querySelector("#numberLike") as HTMLElement;
-    // console.log(this.numberLike)
     if (event && this.like == false) {
       this.like = true
       this.liked = true
@@ -140,7 +162,6 @@ export class PostDetailComponent implements OnInit {
       this.showDislike = false;
       this.numberLike = document.getElementById("numberLike");
       this.numberLike.style.color = "green"
-      console.log(this.numberLike)
       this.postLike = { userId: this.userIdToken, like: 1 }
       this.http.post(`http://localhost:3000/api/posts/${this.idPost}/like`, this.postLike, {
         headers: {
@@ -185,18 +206,14 @@ export class PostDetailComponent implements OnInit {
               console.log(res)
               this.getPost = res
               this.numberLike.innerText = this.getPost.likes
-              console.log(this.numberLike)
-              console.log("coucou2")
             })
         })
 
     }
-    return event
 
   }
 
   onDislike(event: any) {
-    this.numberdislike = document.getElementById("numberDislike") as HTMLElement | null;
     if (event && this.dislike == false) {
       this.dislike = true
       this.disliked = true
@@ -205,19 +222,58 @@ export class PostDetailComponent implements OnInit {
       this.disliked = false
     }
 
-    if (this.disliked == true) {
+    if (this.disliked == true || this.userIdInUserDisliked == true) {
       this.showLike = false;
-      this.numberLike.style.color = "red"
+      this.numberDislike = document.getElementById("numberDislike");
+      this.numberDislike.style.color = "red"
+      this.postDislike = { userId: this.userIdToken, like: -1 }
+      this.http.post(`http://localhost:3000/api/posts/${this.idPost}/like`, this.postDislike, {
+        headers: {
+          'Authorization': `Bearer ${this.token}`,
 
-      console.log("coucou")
+        },
+      })
+        .subscribe((res: any) => {
+          console.log(res)
+          this.http.get(`http://localhost:3000/api/posts/${this.idPost}`, {
+            headers: {
+              'Authorization': `Bearer ${this.token}`,
 
+            },
+          })
+            .subscribe((res) => {
+              this.getPost = res
+              this.numberDislike.innerText = this.getPost.dislikes
+              console.log("test")
+            })
+        })
 
-    } else if (this.disliked == false) {
+    } else if (this.disliked == false || this.userIdInUserLiked == false) {
       this.showLike = true;
-      this.numberLike.style.color = "black"
-      console.log("coucou2")
-    }
+      this.numberDislike.style.color = "black"
+      this.postRemoveDislike = { userId: this.userIdToken, like: 0 }
+      this.http.post(`http://localhost:3000/api/posts/${this.idPost}/like`, this.postRemoveDislike, {
+        headers: {
+          'Authorization': `Bearer ${this.token}`,
 
+        },
+      })
+        .subscribe((res) => {
+          console.log(res)
+          this.http.get(`http://localhost:3000/api/posts/${this.idPost}`, {
+            headers: {
+              'Authorization': `Bearer ${this.token}`,
+
+            },
+          })
+            .subscribe((res) => {
+              console.log(res)
+              this.getPost = res
+              this.numberDislike.innerText = this.getPost.dislikes
+            })
+        })
+
+    }
   }
 
 }
