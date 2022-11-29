@@ -70,8 +70,8 @@ export class PostDetailComponent implements OnInit {
           this.userIdPost = this.post.userId
           this.idPost = this.post._id
           console.log(this.post)
-          this.userIdInUserLiked = this.post.usersLiked.find(() => this.post.usersLiked[0] == this.userIdToken)
-          this.userIdInUserDisliked = this.post.usersDisliked.find(() => this.post.usersDisliked[0] == this.userIdToken)
+          this.userIdInUserLiked = this.post.usersLiked.find((element: any) => element == this.userIdToken)
+          this.userIdInUserDisliked = this.post.usersDisliked.find((element: any) => element == this.userIdToken)
 
           if (this.userIdPost == this.userIdToken || this.isAdmin == true) {
             this.watchModifyAndDelete = true
@@ -80,7 +80,7 @@ export class PostDetailComponent implements OnInit {
         } else {
           this.post = undefined
         }
-        if (this.userIdInUserLiked == this.userIdPost) {
+        if (this.userIdInUserLiked ) {
           this.http.get(`http://localhost:3000/api/posts/${this.idPost}`, {
             headers: {
               'Authorization': `Bearer ${this.token}`,
@@ -90,15 +90,18 @@ export class PostDetailComponent implements OnInit {
             .subscribe((res) => {
               console.log(res)
               this.getPost = res
+              this.showDislike = false;
+              this.showLike = true
               this.numberLike = document.querySelector("#numberLike") as HTMLElement;
               this.numberLike.innerText = this.getPost.likes
               this.numberLike.style.color = "green"
               console.log("onlike")
               this.onlike(event)
+              // this.onDislike(event)
             })
 
         }
-         else if (this.userIdInUserDisliked == this.userIdPost) {
+        if (this.userIdInUserDisliked ) {
           this.http.get(`http://localhost:3000/api/posts/${this.idPost}`, {
             headers: {
               'Authorization': `Bearer ${this.token}`,
@@ -108,11 +111,14 @@ export class PostDetailComponent implements OnInit {
             .subscribe((res) => {
               console.log(res)
               this.getPost = res
+              this.showLike = false;
+              this.showDislike = true
               this.numberDislike = document.querySelector("#numberDislike") as HTMLElement;
               this.numberDislike.innerText = this.getPost.dislikes
               this.numberDislike.style.color = "red"
               console.log("ondislike")
               this.onDislike(event)
+              // this.onlike(event)
             })
 
         }
@@ -160,6 +166,7 @@ export class PostDetailComponent implements OnInit {
 
     if (this.liked == true || this.userIdInUserLiked == true) {
       this.showDislike = false;
+      this.showLike = true
       this.numberLike = document.getElementById("numberLike");
       this.numberLike.style.color = "green"
       this.postLike = { userId: this.userIdToken, like: 1 }
@@ -186,6 +193,7 @@ export class PostDetailComponent implements OnInit {
 
     } else if (this.liked == false || this.userIdInUserLiked == false) {
       this.showDislike = true;
+      this.showLike = true
       this.numberLike.style.color = "black"
       this.postRemoveLike = { userId: this.userIdToken, like: 0 }
       this.http.post(`http://localhost:3000/api/posts/${this.idPost}/like`, this.postRemoveLike, {
@@ -224,6 +232,7 @@ export class PostDetailComponent implements OnInit {
 
     if (this.disliked == true || this.userIdInUserDisliked == true) {
       this.showLike = false;
+      this.showDislike = true
       this.numberDislike = document.getElementById("numberDislike");
       this.numberDislike.style.color = "red"
       this.postDislike = { userId: this.userIdToken, like: -1 }
@@ -250,6 +259,7 @@ export class PostDetailComponent implements OnInit {
 
     } else if (this.disliked == false || this.userIdInUserLiked == false) {
       this.showLike = true;
+      this.showDislike = true
       this.numberDislike.style.color = "black"
       this.postRemoveDislike = { userId: this.userIdToken, like: 0 }
       this.http.post(`http://localhost:3000/api/posts/${this.idPost}/like`, this.postRemoveDislike, {
