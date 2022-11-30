@@ -80,10 +80,7 @@ exports.allPost = (req, res, next) => {
 // Système de likes et de dislikes
 exports.notePost = (req, res, next) => {
     Post.findOne({ _id: req.params.id })
-        .then((post) => {
-            console.log(req.body)
-            console.log(post)
-           
+        .then((post) => {    
             const user_is_liker = post.usersLiked.includes(req.body.userId)
             const user_is_disliker = post.usersDisliked.includes(req.body.userId)
 
@@ -106,6 +103,7 @@ exports.notePost = (req, res, next) => {
                             .catch(error => res.status(401).json({ error }));
                     }
                     res.status(200).json({ message: "user like" })
+                    // je peux envyer directement une info au front ici
                 }
                 )
                     .catch(error => res.status(401).json({ error }));

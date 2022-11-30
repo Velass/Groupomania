@@ -8,13 +8,15 @@
     justify-content: center;
     align-items: center;
     background-color: #FFD7D7;
-    margin: 10% 30% 5% 30%;
+    margin: 10% 20% 5% 20%;
     padding: 5% 5% 5% 5%;
     box-shadow: 2px 2px 2px 2px #4E516691;
 
 
     form {
         width: 100%;
+        display: flex;
+        flex-direction: column;
 
         .form-email {
             margin-bottom: 50px;
@@ -40,21 +42,51 @@
 
         .form-login {
             width: 100%;
+            display: contents;
 
             .login {
-                width: 100%;
+                width: 30%;
                 height: 30px;
                 margin-left: 1%;
+                align-self: center;
             }
         }
     }
 
     label {
 
-        font-size: larger;
+        font-size: large;
         position: relative;
         bottom: 10px;
 
+    }
+
+}
+
+
+@media (min-width : 768px) and (max-width : 1024px) {
+
+.container {
+       
+    margin: 25% 10% 5% 10%;
+    padding: 10% 5% 10% 5%;
+
+    label {
+        font-size: 16px;
+    }
+}
+}
+
+@media (max-width: 768px) {
+
+    .container {
+       
+        margin: 40% 5% 5% 5%;
+        padding: 10% 5% 10% 5%;
+
+        label {
+            font-size: 16px;
+        }
     }
 
 }

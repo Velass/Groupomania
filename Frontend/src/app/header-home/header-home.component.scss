@@ -28,6 +28,10 @@
             margin-right: 5%;
             text-decoration: none;
             color: inherit;
+
+            h3{
+                font-size: x-large;
+            }
         }
 
         a:hover {
@@ -47,12 +51,52 @@
 
 }
 
-@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+@media (min-width : 768px) and (max-width : 1024px) {
     .header {
-        .container1{
+        .container1 {
             img {
-                width: 100%;
+                width: 50%;
                 height: 50%;
+                margin-left: 0%;
+            }
+        }
+
+        .container2 {
+            margin-right: 0%;
+            font-size: larger;
+            a {
+                margin-right: 7%;
+                h3 {
+                    font-size: larger;
+                    white-space: nowrap;
+                }
+            }
+        }
+
+    }
+}
+
+@media (max-width: 768px) {
+
+    .header {
+        .container1 {
+            img {
+                width: 65%;
+                height: auto;
+                margin-left: 0%;
+            }
+        }
+
+        .container2 {
+            margin-right: 0%;
+            font-size: 14px;
+
+            a {
+                margin-right: 7%;
+                h3 {
+                    font-size: 16px;
+                    white-space: nowrap;
+                }
             }
         }
 

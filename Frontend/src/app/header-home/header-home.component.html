@@ -4,16 +4,16 @@
     </div>
     <div class="container2">
         <a *ngIf="auth.isLoggedIn" routerLink="/createpost">
-            <h3 class="login"> CREATEPOST</h3>
+            <h3 class="login"> Crée</h3>
         </a>
         <a *ngIf="!auth.isLoggedIn" routerLink="/signup">
-            <h3 class="signup"> SIGNUP</h3>
+            <h3 class="signup"> S'inscrire</h3>
         </a>
         <a *ngIf="!auth.isLoggedIn" routerLink="/login">
-            <h3 class="login"> LOGIN</h3>
+            <h3 class="login"> Connexion</h3>
         </a>
         <a *ngIf="auth.isLoggedIn" (click)="logout()" routerLink="/login">
-            <h3 class="login"> LOGOUT</h3>
+            <h3 class="login"> Déconnexion</h3>
         </a>
         <a routerLinkActive="active"></a>
 
