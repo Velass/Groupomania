@@ -12,8 +12,19 @@
         align-items: center;
         justify-content: center;
         box-shadow: lightgray 4px 4px 20px;
-        width: 50%;
+        width: 70%;
         margin-top: 30px;
+
+        #description {
+            width: 90%;
+
+            p {
+                width: 90%;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                margin-left: 20px;
+            }
+        }
 
         img {
             width: 50%;
@@ -23,16 +34,13 @@
         #note {
             display: flex;
 
+
+
             p:nth-child(1) {
                 margin-right: 10px;
             }
 
-            p:nth-child(4) {
-                width: 90%;
-                text-overflow: ellipsis;
-                overflow: hidden;
-                margin-left: 20px;
-            }
+
 
             .fa {
                 color: green;
@@ -43,6 +51,36 @@
                 color: red;
                 margin-right: 2px;
             }
+        }
+    }
+}
+
+@media (min-width : 768px) and (max-width : 1024px) {
+    #post {
+
+        .conteneur {
+            width: 90%;
+
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    #post {
+
+        .conteneur {
+            width: 90%;
+
+            h2{
+                width: 100%;
+                text-align: center;
+            }
+
+            p{
+                font-size: small;
+            }
+            
+
         }
     }
 }
