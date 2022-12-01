@@ -12,8 +12,17 @@
         align-items: center;
         justify-content: center;
         box-shadow: lightgray 4px 4px 20px;
-        width: 90%;
+        width: 80%;
         margin-top: 30px;
+
+        #description {
+            width: 95%;
+            height: 100%;
+            word-wrap: anywhere;
+            text-align: left;
+            margin-left: 2%;
+            margin-bottom: 3%;
+        }
 
         .back {
             display: flex;
@@ -38,6 +47,7 @@
 
             #like {
                 display: flex;
+
                 p {
                     margin-right: 10px;
                     color: black;
@@ -54,6 +64,7 @@
                     color: red;
                     margin-right: 2px;
                 }
+
                 p {
                     margin-right: 10px;
                     color: black;
@@ -104,4 +115,31 @@
 h4 {
     text-align: center;
     font-size: larger;
+}
+
+@media (min-width : 768px) and (max-width : 1024px) {
+    #post {
+
+        .conteneur {
+
+            img {
+                width: 50%;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    #post {
+        .conteneur {
+
+            p {
+                font-size: smaller;
+            }
+
+            img {
+                width: 50%;
+            }
+        }
+    }
 }

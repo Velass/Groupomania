@@ -6,7 +6,9 @@
         <h2>{{ post.title }}</h2>
         <p>Mise en ligne le {{post.date | date: "dd MMMM yyyy, à HH:mm" }}</p>
         <img [src]="post.imageUrl" [alt]="post.title">
+        <div id="description">
         <p>{{post.description}}</p>
+        </div>
         <div id="note">
             <div id="like">
                 <i class="fa fa-regular fa-thumbs-up" *ngIf="showLike" (click)="onlike($event)">

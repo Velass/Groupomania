@@ -24,7 +24,7 @@ exports.modifyPost = (req, res, next) => {
     console.log('test')
     console.log(req.file)
     console.log(req.body)
-    const postObject = req.file?  {
+    const postObject = req.file ? {
         ...(req.body),
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...req.body };
@@ -80,12 +80,12 @@ exports.allPost = (req, res, next) => {
 // Système de likes et de dislikes
 exports.notePost = (req, res, next) => {
     Post.findOne({ _id: req.params.id })
-        .then((post) => {    
+        .then((post) => {
             const user_is_liker = post.usersLiked.includes(req.body.userId)
             const user_is_disliker = post.usersDisliked.includes(req.body.userId)
 
             // Si l'utilisateur veut liker la post
-            
+
             if (req.body.like === 1 && !user_is_liker) {
                 // Incrémente likes, et ajoute userId dans la liste userLiked
                 Post.updateOne({ _id: req.params.id }, {
@@ -103,11 +103,16 @@ exports.notePost = (req, res, next) => {
                             .catch(error => res.status(401).json({ error }));
                     }
                     res.status(200).json({ message: "user like" })
-                    // je peux envyer directement une info au front ici
+
                 }
                 )
                     .catch(error => res.status(401).json({ error }));
             }
+            // si l'utilisateur like alors qu'il a deja liker
+            if (req.body.like === 1 && user_is_liker) {
+                console.log("vous avez deja liker")
+            }
+
             // Incrémente dislikes, et ajoute user dans userDisliked
             else if (req.body.like === -1 && !user_is_disliker) {
                 Post.updateOne({ _id: req.params.id }, {
@@ -129,6 +134,11 @@ exports.notePost = (req, res, next) => {
                 )
                     .catch(error => res.status(401).json({ error }));
             }
+
+            if (req.body.like === -1 && user_is_disliker) {
+                console.log("vous avez deja disliker")
+            }
+
             // Si l'utilisateur veut enlever son like/dislike 
             else if (req.body.like === 0) {
                 // Si l'utilisateur a précédemment liké la post
@@ -150,7 +160,7 @@ exports.notePost = (req, res, next) => {
                         .catch(error => res.status(401).json({ error }));
                 }
             }
-            
+
         })
         .catch((error) => {
             res.status(400).json({ error });
