@@ -28,7 +28,7 @@ Les paramétrages de base sont effectués.
 - Paramétrage de la communication entre MongoDB et Groupomania  
 Nous voyons votre Cluster dans Database ![image](https://user-images.githubusercontent.com/97230074/205503341-0b8fad46-17b7-4583-8b28-c1c355a9a638.png)
 Cliquez sur « Connect » et sur « MangoDB Drivers » ![image](https://user-images.githubusercontent.com/97230074/205503347-08efb31a-c5d3-4a09-9109-7e427dc7436e.png).  
-Retenons le code de connexion de la base de donnée. Exemple pour mon cas « mongodb+srv://Utilisateur:<password>@cluster0.ezeb2vy.mongodb.net/?retryWrites=true&w=majority ».    
+Retenons le __code de connexion__ de la base de donnée. Exemple pour mon cas « mongodb+srv://Utilisateur:<password>@cluster0.ezeb2vy.mongodb.net/?retryWrites=true&w=majority ».    
   
 - Installation de Groupomania  
 Télécharger la base de données qui est sur le GitHub, en cliquant sur « Code » et ensuite sur « Download ZIP ».  
@@ -38,8 +38,8 @@ Extraire les fichiers compressés dans le dossier même.
 Ouvrez le dossier backend.  
 Créez un « Nouveau dossier », que vous renommerez « images ».  
 Ensuite créer un nouveau document texte que vous nommerez « .env ».  
-Dans le .env copiez le code de connexion que nous avons retenue précédemment dans MangoDB.  
-Ensuite dans le .env inscrivez « DB_MONGOOSE= » et ensuite collez code de connexion (/ ! \ changez le <password>, en mot de passe que vous avez mis pour l’utilisateur sur MangoDB).  
+Dans le .env copiez le __code de connexion__ que nous avons retenue précédemment dans MangoDB.  
+Ensuite dans le .env inscrivez « DB_MONGOOSE= » et ensuite collez __code de connexion__ (/ ! \ changez le <password>, en mot de passe que vous avez mis pour l’utilisateur sur MangoDB).  
 Exemple « DB_MONGOOSE=mongodb+srv://Utilisateur:votremotdepasse@cluster0.ezeb2vy.mongodb.net/?retryWrites=true&w=majority ».  
 Retourner sur votre dossier Backend, faire un clique-droit dans le dossier, et sélectionner « Git Bash Here ».  
 Sur Git Bash inscrivez « npm install », taper sur entrée. Ensuite marquez  
