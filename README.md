@@ -3,9 +3,9 @@ Projet 7 D'Openclassrooms
 
 1er étape : Chose requises avant commencement
 
-Créer un compte MongoDB (https://www.mongodb.com/)
-Installer NodeJS sur l’ordinateur (https://nodejs.org/en/)
-Installer Git sur l’ordinateur (https://git-scm.com/downloads)
+Créer un compte MongoDB (https://www.mongodb.com/).
+Installer NodeJS sur l’ordinateur (https://nodejs.org/en/).
+Installer Git sur l’ordinateur (https://git-scm.com/downloads).
 
 
 2ème étape : Explications de l’installation du site
