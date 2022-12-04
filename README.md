@@ -17,7 +17,7 @@ Commencez à vous créer un compte.
 
 Une fois sur la page des abonnements cliquez sur l’option « Free » (3ème option). 
 Ensuite sur la page « Create a Shared Cluster », sélectionner :
-           (Sélectionner le pays le plus proche de votre lieu).
+![image](https://user-images.githubusercontent.com/97230074/205503246-5b87888c-5041-4b9b-9322-78652a5c2fb5.png) --> ![image](https://user-images.githubusercontent.com/97230074/205503272-87d5a34f-3917-40a5-afc3-25fe31c2fb2f.png) --> ![image](https://user-images.githubusercontent.com/97230074/205503279-830b8c14-c09d-4939-a671-713535351865.png)(Sélectionner le pays le plus proche de votre lieu).
 Cliqué sur Create Cluster.
 
 - Créer un utilisateur MangoDB
