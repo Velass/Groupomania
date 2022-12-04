@@ -22,12 +22,12 @@ Cliqué sur Create Cluster.
 
 - Créer un utilisateur MangoDB
 Mettre un user name et un password et enregistrez le.
-Sur la même page allez sur « Add entries to your IP Access List » et mettez comme IP Adress  « 0.0.0.0/0 » et mettez comme Description  « accés tout utilisateur ». Puis cliqué sur « Add Entry ». Et Pour terminer cliquez sur « Finish and Close » et ensuite sur « Go to Databases ».
+Sur la même page allez sur « Add entries to your IP Access List » et mettez comme IP Adress --> « 0.0.0.0/0 » et mettez comme Description --> « accés tout utilisateur ». Puis cliqué sur « Add Entry ». Et Pour terminer cliquez sur « Finish and Close » et ensuite sur « Go to Databases ».
 Les paramétrages de base sont effectués.
 
 - Paramétrage de la communication entre MongoDB et Groupomania
-Nous voyons votre Cluster dans Database  
-Cliquez sur « Connect » et sur « MangoDB Drivers »  .
+Nous voyons votre Cluster dans Database ![image](https://user-images.githubusercontent.com/97230074/205503341-0b8fad46-17b7-4583-8b28-c1c355a9a638.png)
+Cliquez sur « Connect » et sur « MangoDB Drivers » ![image](https://user-images.githubusercontent.com/97230074/205503347-08efb31a-c5d3-4a09-9109-7e427dc7436e.png).
 Retenons le code de connexion de la base de donnée. Exemple pour mon cas « mongodb+srv://Utilisateur:<password>@cluster0.ezeb2vy.mongodb.net/?retryWrites=true&w=majority ».  
 
 - Installation de Groupomania
