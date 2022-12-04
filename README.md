@@ -10,7 +10,7 @@ Installer Git sur l’ordinateur (https://git-scm.com/downloads).
 
 2ème étape : Explications de l’installation du site
 
-- Créer compte MangoDB :
+- Créer compte MangoDB :  
 Dans un premier temps nous allons nous rendre sur MangoDB.
 
 Commencez à vous créer un compte. 
