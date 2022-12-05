@@ -25,9 +25,10 @@
         #interact {
             width: 100%;
 
-            p {
-                margin-left: 2%;
-                margin-bottom: 1%;
+            i {
+                margin: 2%;
+                font-size: x-large;
+                color: #000000c2;
             }
         }
 
@@ -94,6 +95,13 @@
                 width: 100%;
                 text-align: center;
                 font-size: larger;
+            }
+            #interact {
+                
+    
+                i {
+                    font-size: medium;
+                }
             }
 
             p {

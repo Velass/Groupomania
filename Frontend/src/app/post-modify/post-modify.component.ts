@@ -49,8 +49,6 @@ export class PostModifyComponent implements  OnInit {
 
   getNameImg(event: any) {
     console.log(event)
-    // if (event.target.files.length > 0) {
-    // }
     this.file = event.target.files[0].name;
     this.photo = event.target.files[0]
     this.type = event.target.files[0].type

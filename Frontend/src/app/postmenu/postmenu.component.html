@@ -1,7 +1,7 @@
 <div id="post">
     <h2>Bienvenue {{email}}</h2>
     <div (click)='goPost(posts)' *ngFor="let posts of listOfPosts " class="conteneur">
-        <div id="interact"><p>intéragissez avec le post</p></div>
+        <div id="interact"><i class="fas fa-light fa-expand"></i></div>
         <h2>{{ posts.title }}</h2>
         <p>Mise en ligne le {{posts.date | date: "dd MMMM yyyy, à HH:mm" }}</p>
         <img [src]="posts.imageUrl" [alt]="posts.title">

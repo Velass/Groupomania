@@ -95,9 +95,7 @@ export class PostDetailComponent implements OnInit {
               this.numberLike = document.querySelector("#numberLike") as HTMLElement;
               this.numberLike.innerText = this.getPost.likes
               this.numberLike.style.color = "green"
-              console.log("onlike")
               this.onlike(event)
-              // this.onDislike(event)
             })
 
         }
@@ -118,7 +116,6 @@ export class PostDetailComponent implements OnInit {
               this.numberDislike.style.color = "red"
               console.log("ondislike")
               this.onDislike(event)
-              // this.onlike(event)
             })
 
         }
