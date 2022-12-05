@@ -129,8 +129,8 @@ export class PostDetailComponent implements OnInit {
     if (this.userIdPost === this.userIdToken || this.isAdmin == true) {
       this.http.delete(`http://localhost:3000/api/posts/${this.idPost}`, {
         headers: {
-          'Authorization': `Bearer ${this.token}`,
-          'Content-Type': 'application/json'
+          'Authorization': `Bearer ${this.token}`, 
+          
         }
       })
         .subscribe((res) => {

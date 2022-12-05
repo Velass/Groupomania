@@ -1,4 +1,5 @@
 const Post = require("../models/Posts")
+const User = require("../models/User")
 const fs = require('fs');
 
 
@@ -7,7 +8,6 @@ const fs = require('fs');
 exports.createPost = (req, res, next) => {
     const postObject = req.body;
     console.log(postObject)
-    console.log('test')
     const post = new Post({
         ...postObject,
         userId: req.auth.userId,
@@ -21,46 +21,57 @@ exports.createPost = (req, res, next) => {
 
 //Controllers pour modifier des posts
 exports.modifyPost = (req, res, next) => {
-    console.log('test')
-    console.log(req.file)
-    console.log(req.body)
-    const postObject = req.file ? {
-        ...(req.body),
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    } : { ...req.body };
+    User.findOne({ _id: req.auth.userId })
+        .then(user => {
+            const isAdmin = user.isAdmin
+            const postObject = req.file ? {
+                ...(req.body),
+                imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+            } : { ...req.body };
 
-    Post.findOne({ _id: req.params.id })
-        .then((post) => {
-            if (post.userId != req.auth.userId) {
-                res.status(401).json({ message: 'Not authorized' });
-            } else {
-                Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
-                    .then(() => res.status(200).json({ message: 'post modifié!' }))
-                    .catch(error => res.status(401).json({ error }));
-            }
+            Post.findOne({ _id: req.params.id })
+                .then((post) => {
+                    if (post.userId != req.auth.userId && isAdmin == false) {
+                        res.status(401).json({ message: 'Not authorized' });
+                    } else {
+                        Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
+                            .then(() => res.status(200).json({ message: 'post modifié!' }))
+                            .catch(error => res.status(401).json({ error }));
+                    }
+                })
+                .catch((error) => {
+                    res.status(400).json({ error });
+                });
         })
         .catch((error) => {
-            res.status(400).json({ error });
+            res.status(401).json({ error });
         });
 };
 
 // Controllers pour supprimer des posts
 exports.deletePost = (req, res, next) => {
-    Post.findOne({ _id: req.params.id })
-        .then(post => {
-            if (post.userId != req.auth.userId) {
-                res.status(401).json({ message: 'Not authorized' });
-            } else {
-                const filename = post.imageUrl.split('/images/')[1];
-                fs.unlink(`images/${filename}`, () => {
-                    Post.deleteOne({ _id: req.params.id })
-                        .then(() => { res.status(200).json({ message: 'post supprimé !' }) })
-                        .catch(error => res.status(401).json({ error }));
+    User.findOne({ _id: req.auth.userId })
+        .then(user => {
+            const isAdmin = user.isAdmin
+            Post.findOne({ _id: req.params.id })
+                .then(post => {
+                    if (post.userId != req.auth.userId && isAdmin == false) {
+                        res.status(401).json({ message: 'Not authorized' });
+                    } else {
+                        const filename = post.imageUrl.split('/images/')[1];
+                        fs.unlink(`images/${filename}`, () => {
+                            Post.deleteOne({ _id: req.params.id })
+                                .then(() => { res.status(200).json({ message: 'post supprimé !' }) })
+                                .catch(error => res.status(401).json({ error }));
+                        });
+                    }
+                })
+                .catch(error => {
+                    res.status(500).json({ error });
                 });
-            }
         })
         .catch(error => {
-            res.status(500).json({ error });
+            res.status(501).json({ error });
         });
 };
 // Apparition des posts

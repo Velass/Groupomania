@@ -3,26 +3,29 @@ import { Component, OnInit, SecurityContext } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-post-modify',
   templateUrl: './post-modify.component.html',
   styleUrls: ['./post-modify.component.scss']
 })
-export class PostModifyComponent implements  OnInit {
+export class PostModifyComponent implements OnInit {
   postForm: FormGroup;
   imageService: any;
   type: string;
-  
+  textdescription: any;
+  texttitle: any;
 
-  constructor(private _formBuilder: FormBuilder, private http: HttpClient,private router: Router,private route: ActivatedRoute,private sanitizer: DomSanitizer) {
+
+
+  constructor(private _formBuilder: FormBuilder, private http: HttpClient, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer) {
     this.postForm = this._formBuilder.group({
       title: ['', Validators.required],
       description: [null, Validators.required],
       file: [null, Validators.required]
     });
   }
+
   title: any
   description: any
   file: any
@@ -35,6 +38,8 @@ export class PostModifyComponent implements  OnInit {
   idPost: any
   photo: any
   photoSafe: any;
+  postTitle: any
+  postDescription: any;
 
   get f() {
     return this.postForm.controls;
@@ -45,6 +50,9 @@ export class PostModifyComponent implements  OnInit {
     this.tokentoken = this.token.token
     this.userId = this.token.userId
     this.idPost = this.route.snapshot.params._id;
+    this.postinfo()
+    this.texttitle = document.getElementById("texttitle")
+   
   }
 
   getNameImg(event: any) {
@@ -62,26 +70,49 @@ export class PostModifyComponent implements  OnInit {
       this.title = this.postForm.value.title
       this.description = this.postForm.value.description
       const data = new FormData();
-      this.photoSafe = this.sanitizer.sanitize(SecurityContext.URL,this.photo.name)
+      this.photoSafe = this.sanitizer.sanitize(SecurityContext.URL, this.photo.name)
       data.append('photo', this.photo, this.photo.name);
-      data.append("photoName", this.photoSafe.replaceAll(" ","_").replace(/[^a-zA-Z ]/g, "") +"."+ this.type)
+      data.append("photoName", this.photoSafe.replaceAll(" ", "_").replace(/[^a-zA-Z ]/g, "") + "." + this.type)
       data.append('title', this.title,);
       data.append('description', this.description,);
       console.log(data)
-      this.http.put("http://localhost:3000/api/posts/"+ this.idPost, data, {
+      this.http.put("http://localhost:3000/api/posts/" + this.idPost, data, {
         headers: {
           'Authorization': `Bearer ${this.tokentoken}`,
         },
       })
         .subscribe((res) => {
           console.log(res)
-          setTimeout(()=>{ this.router.navigate(['/postmenu']); }, 10)
+          setTimeout(() => { this.router.navigate(['/postmenu']); }, 10)
         })
 
     }
 
   }
 
+  postinfo() {
+    this.http.get("http://localhost:3000/api/posts/" + this.idPost, {
+      headers: {
+        'Authorization': `Bearer ${this.tokentoken}`,
+      },
+    })
+      .subscribe((res) => {
+        console.log(res)
+        this.post = res
+        this.postTitle = this.post.title
+        this.postDescription = this.post.description
+        this.textdescription = document.getElementById("textdescription")
+        this.texttitle = document.getElementById("texttitle")
+        this.textdescription.value = this.post.description
+        this.texttitle.value = this.post.title
+        this.postForm.value.title = this.texttitle.value
+        console.log(this.f)
+
+      })
+  }
+  //   postdesription(event: any){
+  // console.log(event)
+  //   }
 
 }
 
