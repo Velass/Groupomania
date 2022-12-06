@@ -10,7 +10,6 @@ import { HeaderHomeComponent } from './header-home/header-home.component';
 import { LoginComponent, } from './auth/login/login.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { FormsModule } from '@angular/forms';
-import { GlobalErrorHandler } from './error.service';
 import { PostmenuComponent } from './postmenu/postmenu.component';
 import { PostDetailComponent } from './post-detail/post-detail.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -47,7 +46,7 @@ import { PostModifyComponent } from './post-modify/post-modify.component';
 
   ],
   providers: [
-    { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    { provide: ErrorHandler,  },
     { provide: LOCALE_ID, useValue: 'fr-FR' },
   ],
   bootstrap: [AppComponent]
