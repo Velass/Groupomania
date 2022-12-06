@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-post-modify',
   templateUrl: './post-modify.component.html',
@@ -15,6 +16,7 @@ export class PostModifyComponent implements OnInit {
   type: string;
   textdescription: any;
   texttitle: any;
+  getpost : any
 
 
 
@@ -51,7 +53,6 @@ export class PostModifyComponent implements OnInit {
     this.userId = this.token.userId
     this.idPost = this.route.snapshot.params._id;
     this.postinfo()
-    this.texttitle = document.getElementById("texttitle")
    
   }
 
@@ -62,6 +63,7 @@ export class PostModifyComponent implements OnInit {
     this.type = event.target.files[0].type
     this.type = this.type.split('/')[1]
     console.log(this.type)
+    console.log(this.postForm)
   }
 
 
@@ -85,31 +87,34 @@ export class PostModifyComponent implements OnInit {
           console.log(res)
           setTimeout(() => { this.router.navigate(['/postmenu']); }, 10)
         })
+       
 
     }
 
   }
 
   postinfo() {
-    this.http.get("http://localhost:3000/api/posts/" + this.idPost, {
+    this.getpost = this.http.get("http://localhost:3000/api/posts/" + this.idPost, {
       headers: {
         'Authorization': `Bearer ${this.tokentoken}`,
       },
     })
+  
       .subscribe((res) => {
         console.log(res)
         this.post = res
-        this.postTitle = this.post.title
-        this.postDescription = this.post.description
-        this.textdescription = document.getElementById("textdescription")
-        this.texttitle = document.getElementById("texttitle")
-        this.textdescription.value = this.post.description
-        this.texttitle.value = this.post.title
-        this.postForm.value.title = this.texttitle.value
-        console.log(this.f)
+        this.postForm.get('description')?.patchValue(this.post.description)
+        this.postForm.get('title')?.patchValue(this.post.title)
+        console.log(this.postForm)
+        
 
       })
+
+      
+      
+      
   }
+
   //   postdesription(event: any){
   // console.log(event)
   //   }

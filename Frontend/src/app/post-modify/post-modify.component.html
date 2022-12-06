@@ -2,7 +2,7 @@
     <div class="form">
         <div class="title">
             <h3>Titre du post</h3>
-            <input required type="text" formControlName="title" id="texttitle">
+            <input required type="text" formControlName="title" >
             <div *ngIf="f.title.errors?.required">
                 title is invalid
 
@@ -10,7 +10,7 @@
         </div>
         <div class="description">
             <h3>Description du post</h3>
-            <textarea required formControlName="description" id="textdescription" ></textarea>
+            <textarea required formControlName="description"  ></textarea>
             <div class="comment" *ngIf="f.description.errors?.required">
                 description is invalid
 
