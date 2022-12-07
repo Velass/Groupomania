@@ -23,7 +23,6 @@ export class AuthService {
     this.http.post("http://localhost:3000/api/auth/login", Login, { responseType: "json" })
       .subscribe((res: any,) => {
         const token = res
-        console.log(token)
         if (token != null) {
           this.isLoggedIn = true
           localStorage.setItem('token', JSON.stringify(token),)

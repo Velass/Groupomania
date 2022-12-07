@@ -11,7 +11,6 @@ import { Post } from '../models/post.model';
 })
 export class PostmenuComponent implements OnInit {
   postSelected!: Post | undefined;
-  // postList: Post[] = POST;
   listOfPosts: any
  
   constructor(private http: HttpClient,
@@ -30,9 +29,6 @@ export class PostmenuComponent implements OnInit {
 
   }
 
-  // selectPost(post: Post) {
-
-  // }
 
   useremail() {
     const token = JSON.parse(localStorage.getItem("token")!);
@@ -49,18 +45,11 @@ export class PostmenuComponent implements OnInit {
       .subscribe((res) => {
         this.listOfPosts = res
         this.listOfPosts = this.listOfPosts.reverse()
-        console.log(this.listOfPosts)
-        
        
       })
       
   }
 
-
-  onlike(like: any) {
-    console.log(like)
-    
-  }
 
   goPost(post: Post) {
     this.router.navigate(['/postmenu', post._id])

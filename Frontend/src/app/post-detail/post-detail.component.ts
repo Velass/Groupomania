@@ -69,7 +69,6 @@ export class PostDetailComponent implements OnInit {
           this.post = this.postList.find((post: { _id: string; }) => post._id == postId)
           this.userIdPost = this.post.userId
           this.idPost = this.post._id
-          console.log(this.post)
           this.userIdInUserLiked = this.post.usersLiked.find((element: any) => element == this.userIdToken)
           this.userIdInUserDisliked = this.post.usersDisliked.find((element: any) => element == this.userIdToken)
 
@@ -88,7 +87,6 @@ export class PostDetailComponent implements OnInit {
             },
           })
             .subscribe((res) => {
-              console.log(res)
               this.getPost = res
               this.showDislike = false;
               this.showLike = true
@@ -107,14 +105,12 @@ export class PostDetailComponent implements OnInit {
             },
           })
             .subscribe((res) => {
-              console.log(res)
               this.getPost = res
               this.showLike = false;
               this.showDislike = true
               this.numberDislike = document.querySelector("#numberDislike") as HTMLElement;
               this.numberDislike.innerText = this.getPost.dislikes
               this.numberDislike.style.color = "red"
-              console.log("ondislike")
               this.onDislike(event)
             })
 
@@ -125,7 +121,6 @@ export class PostDetailComponent implements OnInit {
 
 
   delete(event: any) {
-    console.log(event)
     if (this.userIdPost === this.userIdToken || this.isAdmin == true) {
       this.http.delete(`http://localhost:3000/api/posts/${this.idPost}`, {
         headers: {
@@ -134,7 +129,6 @@ export class PostDetailComponent implements OnInit {
         }
       })
         .subscribe((res) => {
-          console.log(res)
           setTimeout(() => { this.router.navigate(['/postmenu']); }, 10)
         });
 
@@ -146,7 +140,6 @@ export class PostDetailComponent implements OnInit {
   }
 
   modify(event: any) {
-    console.log(event)
     if (this.userIdPost === this.userIdToken || this.isAdmin == true) {
       setTimeout(() => { this.router.navigate(['/modify', this.idPost]); }, 10)
     }
@@ -174,7 +167,6 @@ export class PostDetailComponent implements OnInit {
         },
       })
         .subscribe((res: any) => {
-          console.log(res)
           this.http.get(`http://localhost:3000/api/posts/${this.idPost}`, {
             headers: {
               'Authorization': `Bearer ${this.token}`,
@@ -184,7 +176,6 @@ export class PostDetailComponent implements OnInit {
             .subscribe((res) => {
               this.getPost = res
               this.numberLike.innerText = this.getPost.likes
-              console.log("coucou")
             })
         })
 
@@ -200,7 +191,6 @@ export class PostDetailComponent implements OnInit {
         },
       })
         .subscribe((res) => {
-          console.log(res)
           this.http.get(`http://localhost:3000/api/posts/${this.idPost}`, {
             headers: {
               'Authorization': `Bearer ${this.token}`,
@@ -208,7 +198,6 @@ export class PostDetailComponent implements OnInit {
             },
           })
             .subscribe((res) => {
-              console.log(res)
               this.getPost = res
               this.numberLike.innerText = this.getPost.likes
             })
@@ -240,7 +229,6 @@ export class PostDetailComponent implements OnInit {
         },
       })
         .subscribe((res: any) => {
-          console.log(res)
           this.http.get(`http://localhost:3000/api/posts/${this.idPost}`, {
             headers: {
               'Authorization': `Bearer ${this.token}`,
@@ -250,7 +238,6 @@ export class PostDetailComponent implements OnInit {
             .subscribe((res) => {
               this.getPost = res
               this.numberDislike.innerText = this.getPost.dislikes
-              console.log("test")
             })
         })
 
@@ -266,7 +253,6 @@ export class PostDetailComponent implements OnInit {
         },
       })
         .subscribe((res) => {
-          console.log(res)
           this.http.get(`http://localhost:3000/api/posts/${this.idPost}`, {
             headers: {
               'Authorization': `Bearer ${this.token}`,
@@ -274,7 +260,6 @@ export class PostDetailComponent implements OnInit {
             },
           })
             .subscribe((res) => {
-              console.log(res)
               this.getPost = res
               this.numberDislike.innerText = this.getPost.dislikes
             })

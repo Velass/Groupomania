@@ -49,27 +49,5 @@ export class LoginComponent implements OnInit {
   }
 
 
-  // onLoginCreate(login: { email: string, password: string }): any {
-   
-  //   this.http.post("http://localhost:3000/api/auth/login", login, { responseType: "json" })
-  //     .subscribe((res: any,) => {
-  //       const token = res
-  //       console.log(token)
-  //       if (token != null) {
-  //         // this.auth.isLoggedIn$.next(true),
-  //         this.auth.isLoggedIn = true
-          
-  //         localStorage.setItem('token', JSON.stringify(token),)
-  //         this.router.navigate(["/postmenu"]);
-
-
-  //       }
-  //     });
-    
-  //   console.log(login)
-
-  // }
-
-
 }
 

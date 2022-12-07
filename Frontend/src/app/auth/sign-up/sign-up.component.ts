@@ -35,27 +35,20 @@ export class SignUpComponent implements OnInit {
   onSignupCreate(signup: { email: string, password: string, }) {
     const messageError = (document.getElementById("message") as HTMLInputElement)
     if (!verifyRegexEmail()) {
-      console.log("test")
       return
     }
     if (!verifyRegexPassword()) {
-      console.log("test")
       return
     }
     if (messageError.textContent === "") {
       this.http.post("http://localhost:3000/api/auth/signup", signup)
         .subscribe((res) => {
-          console.log(res)
-          // this.auth.isLoggedIn$.next(true)
           this.router.navigate(["/postmenu"]);
 
 
         })
-      console.log("ok");
 
-    } //else (messageError.textContent! === "veuillez sélectionner une adresse mail valide" || messageError.textContent! === "Mot de passe a 3 caractères minimum "); {
-    //   console.log("non")
-    // }
+    } 
   }
 }
 

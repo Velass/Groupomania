@@ -57,13 +57,10 @@ export class PostModifyComponent implements OnInit {
   }
 
   getNameImg(event: any) {
-    console.log(event)
     this.file = event.target.files[0].name;
     this.photo = event.target.files[0]
     this.type = event.target.files[0].type
     this.type = this.type.split('/')[1]
-    console.log(this.type)
-    console.log(this.postForm)
   }
 
 
@@ -77,14 +74,12 @@ export class PostModifyComponent implements OnInit {
       data.append("photoName", this.photoSafe.replaceAll(" ", "_").replace(/[^a-zA-Z ]/g, "") + "." + this.type)
       data.append('title', this.title,);
       data.append('description', this.description,);
-      console.log(data)
       this.http.put("http://localhost:3000/api/posts/" + this.idPost, data, {
         headers: {
           'Authorization': `Bearer ${this.tokentoken}`,
         },
       })
         .subscribe((res) => {
-          console.log(res)
           setTimeout(() => { this.router.navigate(['/postmenu']); }, 10)
         })
        
@@ -101,12 +96,9 @@ export class PostModifyComponent implements OnInit {
     })
   
       .subscribe((res) => {
-        console.log(res)
         this.post = res
         this.postForm.get('description')?.patchValue(this.post.description)
         this.postForm.get('title')?.patchValue(this.post.title)
-        console.log(this.postForm)
-        
 
       })
 
@@ -114,10 +106,6 @@ export class PostModifyComponent implements OnInit {
       
       
   }
-
-  //   postdesription(event: any){
-  // console.log(event)
-  //   }
 
 }
 
