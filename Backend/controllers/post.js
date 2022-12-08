@@ -7,7 +7,6 @@ const fs = require('fs');
 
 exports.createPost = (req, res, next) => {
     const postObject = req.body;
-    console.log(postObject)
     const post = new Post({
         ...postObject,
         userId: req.auth.userId,
