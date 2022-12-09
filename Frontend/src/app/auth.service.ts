@@ -13,6 +13,7 @@ export class AuthService {
 
 
   isLoggedIn: boolean = false
+  messageError : any
 
 
   ngOnInit(): void {
@@ -30,6 +31,8 @@ export class AuthService {
           
 
         }
+      },
+      (err) => {
       });
       return of(this.isLoggedIn)
       

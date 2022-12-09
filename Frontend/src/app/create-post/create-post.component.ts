@@ -16,11 +16,11 @@ export class CreatePostComponent implements OnInit {
   imageService: any;
   type: any;
 
-  constructor(private _formBuilder: FormBuilder, private http: HttpClient, private router: Router,private sanitizer: DomSanitizer) {
+  constructor(private _formBuilder: FormBuilder, private http: HttpClient, private router: Router, private sanitizer: DomSanitizer) {
     this.postForm = this._formBuilder.group({
-      title: ['', Validators.required],
-      description: [null, Validators.required],
-      file: [null, Validators.required]
+      title: ['', Validators.required,],
+      description: ['', Validators.required],
+      file: ['', Validators.required]
     });
   }
   title: any
@@ -43,6 +43,7 @@ export class CreatePostComponent implements OnInit {
     this.token = JSON.parse(localStorage.getItem("token")!);
     this.tokentoken = this.token.token
     this.userId = this.token.userId
+
   }
 
   getNameImg(event: any) {
@@ -56,13 +57,28 @@ export class CreatePostComponent implements OnInit {
 
 
   submitBook() {
+    if (this.f.title.value.length <= 0) {
+      const messageError = (document.getElementById("messageTitle") as HTMLInputElement)
+      messageError.textContent = "veuillez mettre un titre",
+        messageError.style.color = "red"
+
+    } if (this.f.description.value.length <= 0 ) {
+      const messageError = (document.getElementById("messageDescription") as HTMLInputElement)
+      messageError.textContent = "veuillez mettre une description",
+        messageError.style.color = "red"
+    } if (this.f.file.value <= 0) {
+      const messageError = (document.getElementById("messageFile") as HTMLInputElement)
+      messageError.textContent = "veuillez mettre un lien",
+        messageError.style.color = "red"
+    }
+
     if (!this.postForm.invalid) {
       this.title = this.postForm.value.title
       this.description = this.postForm.value.description
       const data = new FormData();
-      this.photoSafe = this.sanitizer.sanitize(SecurityContext.URL,this.photo.name)
+      this.photoSafe = this.sanitizer.sanitize(SecurityContext.URL, this.photo.name)
       data.append('photo', this.photo, this.photo.name);
-      data.append("photoName", this.photoSafe.replaceAll(" ","_").replace(/[^a-zA-Z ]/g, "") +"."+ this.type)
+      data.append("photoName", this.photoSafe.replaceAll(" ", "_").replace(/[^a-zA-Z ]/g, "") + "." + this.type)
       data.append('title', this.title,);
       data.append('description', this.description,);
       this.http.post("http://localhost:3000/api/posts", data, {
@@ -71,14 +87,16 @@ export class CreatePostComponent implements OnInit {
         },
       })
         .subscribe((res) => {
-          setTimeout(()=>{ this.router.navigate(['/postmenu']); }, 10)
+          setTimeout(() => { this.router.navigate(['/postmenu']); }, 10)
         })
 
     }
 
   }
 
+  formOk() {
 
+  }
 
 
 }

@@ -14,7 +14,9 @@
         flex-direction: column;
         margin-bottom: 70px;
 
-
+        div {
+            color: red;
+        }
         
 
         input {
@@ -31,6 +33,9 @@
         flex-direction: column;
         margin-bottom: 50px;
 
+        div {
+            color: red;
+        }
         textarea {
             width: 80%;
             height: 200px;
@@ -44,6 +49,9 @@
         display: flex;
         flex-direction: column;
         margin-bottom: 5%;
+        div {
+            color: red;
+        }
 
         #file {
             width: 100%;

@@ -14,7 +14,7 @@ import { AuthService } from '../../auth.service';
 })
 
 export class LoginComponent implements OnInit {
-  
+
 
 
 
@@ -36,16 +36,22 @@ export class LoginComponent implements OnInit {
 
 
   onLoginCreate(login: { email: string, password: string }): any {
+    const messageError = (document.getElementById("message") as HTMLInputElement)
     this.email = login.email
     this.password = login.password
     this.auth.login(login)
-    .subscribe((isLoggedIn: Boolean)=> {
-      if(isLoggedIn){
-        this.router.navigate(["/postmenu"])
-      } else{
-        this.router.navigate(["/login"])
-      }
-    })
+      .subscribe((isLoggedIn: Boolean) => {
+        if (isLoggedIn == true) {
+          this.router.navigate(["/postmenu"])
+        }
+        else {
+          setTimeout(() => {
+            messageError.textContent = "Identifiant ou mot de passe incorrect",
+            messageError.style.color = "red"
+          }, 200)
+
+        } 
+      })
   }
 
 

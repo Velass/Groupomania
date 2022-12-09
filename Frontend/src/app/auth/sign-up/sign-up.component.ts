@@ -11,6 +11,7 @@ import { AuthService } from '../../auth.service';
 })
 
 export class SignUpComponent implements OnInit {
+  listOfPosts: any;
 
   constructor(private http: HttpClient,
     private router: Router,
@@ -21,6 +22,8 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {
     this.auth = this.authService
+
+    
   }
   onRegedexEmail() {
     verifyRegexEmail()
@@ -43,18 +46,32 @@ export class SignUpComponent implements OnInit {
     if (messageError.textContent === "") {
       this.http.post("http://localhost:3000/api/auth/signup", signup)
         .subscribe((res) => {
+          console.log(res)
           this.router.navigate(["/postmenu"]);
+          
+          
+          
+          
 
+        },
+        (err)=> {
+          if(err.status === 400){
+            messageError.innerHTML ="Email deja inscrit"
+            messageError.style.color = "red"
 
+          }
         })
+        
+       
+        
 
-    } 
+    }
   }
+
 }
 
 function verifyRegexEmail(): boolean {
   const inputEmail = (document.getElementById("email") as HTMLInputElement)
-
   const emailRegExp = /^[\w-\.]+@([\w-]+\.)+[a-z]{2,4}$/g;
   const messageError = (document.getElementById("message") as HTMLInputElement)
   if (emailRegExp.test(inputEmail.value)) {
@@ -63,6 +80,7 @@ function verifyRegexEmail(): boolean {
 
   } else {
     messageError.textContent = "Merci de bien vouloir saisir un Email valide"
+    messageError.style.color = "red"
     return false;
   }
 
@@ -80,9 +98,12 @@ function verifyRegexPassword(): boolean {
 
   } else {
     messageError.textContent = "Mot de passe a 3 caractères minimum "
+    messageError.style.color = "red"
     return false;
   }
 
 
 
 }
+
+  
